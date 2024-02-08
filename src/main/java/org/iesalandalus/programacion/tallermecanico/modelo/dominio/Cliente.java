@@ -69,12 +69,16 @@ public class Cliente {
         this.telefono = telefono;
     }
 
-    public static Cliente get(String dni) {
-        if (this.dni == dni) {
-
+    public Cliente get(String dni) {
+        Objects.requireNonNull(dni, "El nombre no puede ser nulo.");
+        if (!dni.matches(ER_DNI) || !comprobarLetraDni(dni)) {
+            throw new IllegalArgumentException("El dni no es válido.");
         }
-
-
+        if (this.dni.equals(dni)) {
+            return new Cliente(this.nombre, this.dni, this.telefono);
+        } else {
+            throw new IllegalArgumentException(String.format("El cliente con DNI: %s, no existe.", dni));
+        }
     }
 
     @Override
