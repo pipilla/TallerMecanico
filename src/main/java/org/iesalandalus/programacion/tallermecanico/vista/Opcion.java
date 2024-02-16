@@ -26,14 +26,18 @@ public enum Opcion {
 
     private final int numeroOpcion;
     private final String mensaje;
-    private static final Map<Integer, String> opciones = new HashMap<>();
+    static Map<Integer, Opcion> opciones;
+
+    static {
+        opciones = new HashMap<>();
+        for (Opcion opcion : Opcion.values()) {
+            opciones.put(opcion.numeroOpcion, opcion);
+        }
+    }
 
     Opcion(int numeroOpcion, String mensaje) {
         this.numeroOpcion = numeroOpcion;
         this.mensaje = mensaje;
-        for (Opcion opcion : Opcion.values()) {
-            opciones.put(opcion.numeroOpcion, opcion.mensaje);
-        }
     }
 
     public static boolean esValida(int numeroOpcion) {
@@ -42,9 +46,13 @@ public enum Opcion {
 
     public static Opcion get(int numeroOpcion) {
         if (opciones.get(numeroOpcion) == null) {
-            throw new IllegalArgumentException("Opción incorrecta.")
+            throw new IllegalArgumentException("Opción incorrecta.");
         }
-        return opciones
+        return opciones.get(numeroOpcion);
     }
 
+    @Override
+    public String toString() {
+        return String.format("%s. %s%n", this.numeroOpcion, this.mensaje);
+    }
 }
