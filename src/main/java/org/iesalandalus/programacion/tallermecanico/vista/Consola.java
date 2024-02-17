@@ -22,7 +22,7 @@ public class Consola {
     }
 
     public static void mostrarMenu() {
-        System.out.println("MENÚ:");
+        mostrarCabecera("MENÚ");
         for (Opcion opcion : Opcion.values()) {
             System.out.printf("%s", opcion);
         }
