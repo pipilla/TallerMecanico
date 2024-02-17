@@ -26,11 +26,31 @@ public class Vista {
     }
 
     public void terminar() {
-        salir();
+        System.out.printf("¡HASTA PRONTO!%n");
     }
 
     private void ejecutar(Opcion opcion) {
-
+        switch (opcion) {
+            case INSERTAR_CLIENTE -> insertarCliente();
+            case BUSCAR_CLIENTE -> buscarCliente();
+            case BORRAR_CLIENTE -> borrarCliente();
+            case LISTAR_CLIENTES -> listarClientes();
+            case MODIFICAR_CLIENTE -> modificarCliente();
+            case INSERTAR_VEHICULO -> insertarVehiculo();
+            case BUSCAR_VEHICULO -> buscarVehiculo();
+            case BORRAR_VEHICULO -> borrarVehiculo();
+            case LISTAR_VEHICULOS -> listarVehiculos();
+            case INSERTAR_REVISION -> insertarRevision();
+            case BUSCAR_REVISION -> buscarRevision();
+            case BORRAR_REVISION -> borrarRevision();
+            case LISTAR_REVISIONES -> listarRevisiones();
+            case LISTAR_REVISIONES_CLIENTE -> listarRevisionesCliente();
+            case LISTAR_REVISIONES_VEHICULO -> listarRevisionesVehiculo();
+            case ANADIR_HORAS_REVISION -> anadirHoras();
+            case ANADIR_PRECIO_MATERIAL_REVISION -> anadirPrecioMaterial();
+            case CERRAR_REVISION -> cerrarRevision();
+            case SALIR -> salir();
+        }
     }
 
     private void insertarCliente() {
@@ -174,7 +194,6 @@ public class Vista {
     }
 
     private void salir() {
-        Consola.mostrarCabecera(Opcion.SALIR.toString());
-        System.out.printf("¡HASTA PRONTO!%n");
+        terminar();
     }
 }

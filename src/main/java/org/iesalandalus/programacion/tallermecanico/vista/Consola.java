@@ -18,7 +18,7 @@ public class Consola {
     public static void mostrarCabecera(String mensaje) {
         Objects.requireNonNull(mensaje);
         System.out.println(mensaje);
-        System.out.printf(String.format("%s%n", String.format("%%0%dd", mensaje.length())));
+        System.out.printf(String.format("%s%n", String.format("%%0%dd", mensaje.length()))); //CORREGIR ESTO
     }
 
     public static void mostrarMenu() {
