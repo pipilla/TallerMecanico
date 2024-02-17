@@ -1,5 +1,6 @@
 package org.iesalandalus.programacion.tallermecanico.vista;
 
+import org.iesalandalus.programacion.tallermecanico.controlador.Controlador;
 import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Cliente;
 import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Revision;
 import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Vehiculo;
@@ -61,35 +62,23 @@ public class Vista {
 
     private void buscarCliente() {
         Consola.mostrarCabecera(Opcion.BUSCAR_CLIENTE.toString());
-        try {
-            Cliente cliente = Consola.leerClienteDni();
-            controlador.buscar(cliente);
-            System.out.printf("EXISTE: %s", cliente);
-        } catch (OperationNotSupportedException e) {
-            System.out.println(e.getMessage());
-        }
+        Cliente cliente = Consola.leerClienteDni();
+        controlador.buscar(cliente);
+        System.out.printf("EXISTE: %s", cliente);
     }
 
     private void buscarVehiculo() {
         Consola.mostrarCabecera(Opcion.BUSCAR_VEHICULO.toString());
-        try {
-            Vehiculo vehiculo = Consola.leerVehiculoMatricula();
-            controlador.buscar(vehiculo);
-            System.out.printf("EXISTE: %s", vehiculo);
-        } catch (OperationNotSupportedException e) {
-            System.out.println(e.getMessage());
-        }
+        Vehiculo vehiculo = Consola.leerVehiculoMatricula();
+        controlador.buscar(vehiculo);
+        System.out.printf("EXISTE: %s", vehiculo);
     }
 
     private void buscarRevision() {
         Consola.mostrarCabecera(Opcion.BUSCAR_REVISION.toString());
-        try {
-            Revision revision = Consola.leerRevision();
-            controlador.buscar(revision);
-            System.out.printf("EXISTE: %s", revision);
-        } catch (OperationNotSupportedException e) {
-            System.out.println(e.getMessage());
-        }
+        Revision revision = Consola.leerRevision();
+        controlador.buscar(revision);
+        System.out.printf("EXISTE: %s", revision);
     }
 
     private void modificarCliente() {
