@@ -7,7 +7,7 @@ public enum Opcion {
     INSERTAR_CLIENTE(1, "Insertar cliente"),
     BUSCAR_CLIENTE(2, "Buscar cliente"),
     BORRAR_CLIENTE(3,"Borrar cliente"),
-    LISTAR_CLIENTES(4, "Listar cliente"),
+    LISTAR_CLIENTES(4, "Listar clientes"),
     MODIFICAR_CLIENTE(5, "Modificar cliente"),
     INSERTAR_VEHICULO(6, "Insertar vehiculo"),
     BUSCAR_VEHICULO(7, "Buscar vehiculo"),
@@ -53,6 +53,6 @@ public enum Opcion {
 
     @Override
     public String toString() {
-        return String.format("%s. %s%n", this.numeroOpcion, this.mensaje);
+        return String.format("%s. %s", this.numeroOpcion, this.mensaje);
     }
 }

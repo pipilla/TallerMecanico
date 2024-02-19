@@ -9,7 +9,6 @@ public class Main {
         Vista vista = new Vista();
         Modelo modelo = new Modelo();
         Controlador controlador = new Controlador(modelo, vista);
-        vista.setControlador(controlador);
-        vista.comenzar();
+        controlador.comenzar();
     }
 }

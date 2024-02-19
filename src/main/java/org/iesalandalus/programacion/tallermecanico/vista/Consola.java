@@ -24,8 +24,9 @@ public class Consola {
     public static void mostrarMenu() {
         mostrarCabecera("MENÚ");
         for (Opcion opcion : Opcion.values()) {
-            System.out.printf("%s", opcion);
+            System.out.printf("%s%n", opcion);
         }
+        System.out.println();
     }
 
     private static int leerEntero(String mensaje) {
@@ -102,11 +103,15 @@ public class Consola {
         boolean nombreCorrecto = false;
         do {
             nombre = leerCadena("Dime el nuevo nombre del cliente: ");
-            try {
-                Cliente cliente = new Cliente(nombre, "11111111H", "600600600");
+            if (!nombre.isBlank()) {
+                try {
+                    new Cliente(nombre, "11111111H", "600600600");
+                    nombreCorrecto = true;
+                } catch (IllegalArgumentException| NullPointerException e) {
+                    System.out.println(e.getMessage());
+                }
+            } else {
                 nombreCorrecto = true;
-            } catch (IllegalArgumentException| NullPointerException e) {
-                System.out.println(e.getMessage());
             }
         } while (!nombreCorrecto);
         return nombre;
@@ -117,12 +122,17 @@ public class Consola {
         boolean telefonoCorrecto = false;
         do {
             telefono = leerCadena("Dime el nuevo telefono del cliente: ");
-            try {
-                Cliente cliente = new Cliente("Juan", "11111111H", telefono);
+            if (!telefono.isBlank()) {
+                try {
+                    new Cliente("Juan", "11111111H", telefono);
+                    telefonoCorrecto = true;
+                } catch (IllegalArgumentException| NullPointerException e) {
+                    System.out.println(e.getMessage());
+                }
+            } else {
                 telefonoCorrecto = true;
-            } catch (IllegalArgumentException| NullPointerException e) {
-                System.out.println(e.getMessage());
             }
+
         } while (!telefonoCorrecto);
         return telefono;
     }
@@ -147,7 +157,7 @@ public class Consola {
         boolean vehiculoCorrecto = false;
         do {
             try {
-                vehiculo = Vehiculo.get(leerCadena("Dime el DNI del cliente: "));
+                vehiculo = Vehiculo.get(leerCadena("Dime la matrícula del vehículo: "));
                 vehiculoCorrecto = true;
             } catch (IllegalArgumentException| NullPointerException e) {
                 System.out.println(e.getMessage());
@@ -162,7 +172,7 @@ public class Consola {
 
         do {
             try {
-                revision = new Revision(leerCliente(), leerVehiculo(), leerFecha("Dime la fecha de inicio de la revisión: "));
+                revision = new Revision(leerClienteDni(), leerVehiculoMatricula(), leerFecha("Dime la fecha de inicio de la revisión: "));
                 revisionCorrecta = true;
             } catch (IllegalArgumentException | NullPointerException e) {
                 System.out.println(e.getMessage());

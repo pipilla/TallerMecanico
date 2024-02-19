@@ -21,6 +21,7 @@ public class Vista {
         do {
             Consola.mostrarMenu();
             opcion = Consola.elegirOpcion();
+            System.out.println();
             ejecutar(opcion);
         } while (opcion != Opcion.SALIR);
     }
@@ -60,6 +61,7 @@ public class Vista {
         } catch (OperationNotSupportedException e) {
             System.out.println(e.getMessage());
         }
+        System.out.printf("Cliente creado correctamente.%n%n");
     }
 
     private void insertarVehiculo() {
@@ -69,36 +71,38 @@ public class Vista {
         } catch (OperationNotSupportedException e) {
             System.out.println(e.getMessage());
         }
+        System.out.printf("Vehículo creado correctamente.%n%n");
     }
 
     private void insertarRevision() {
         Consola.mostrarCabecera(Opcion.INSERTAR_REVISION.toString());
         try {
             controlador.insertar(Consola.leerRevision());
-        } catch (OperationNotSupportedException e) {
+        } catch (OperationNotSupportedException | NullPointerException e) {
             System.out.println(e.getMessage());
         }
+        System.out.printf("Revisión creada correctamente.%n%n");
     }
 
     private void buscarCliente() {
         Consola.mostrarCabecera(Opcion.BUSCAR_CLIENTE.toString());
         Cliente cliente = Consola.leerClienteDni();
         controlador.buscar(cliente);
-        System.out.printf("EXISTE: %s", cliente);
+        System.out.printf("EXISTE: %s%n%n", controlador.buscar(cliente));
     }
 
     private void buscarVehiculo() {
         Consola.mostrarCabecera(Opcion.BUSCAR_VEHICULO.toString());
         Vehiculo vehiculo = Consola.leerVehiculoMatricula();
         controlador.buscar(vehiculo);
-        System.out.printf("EXISTE: %s", vehiculo);
+        System.out.printf("EXISTE: %s%n%n", controlador.buscar(vehiculo));
     }
 
     private void buscarRevision() {
         Consola.mostrarCabecera(Opcion.BUSCAR_REVISION.toString());
         Revision revision = Consola.leerRevision();
         controlador.buscar(revision);
-        System.out.printf("EXISTE: %s", revision);
+        System.out.printf("EXISTE: %s%n%n", controlador.buscar(revision));
     }
 
     private void modificarCliente() {
@@ -107,7 +111,7 @@ public class Vista {
         try {
             modificado = controlador.modificar(Consola.leerClienteDni(), Consola.leerNuevoNombre(), Consola.leerNuevoTelefono());
             if (modificado) {
-                System.out.printf("El cliente ha sido modificado.%n");
+                System.out.printf("El cliente ha sido modificado.%n%n");
             }
         } catch (OperationNotSupportedException e) {
             System.out.println(e.getMessage());
@@ -121,6 +125,7 @@ public class Vista {
         } catch (OperationNotSupportedException e) {
             System.out.println(e.getMessage());
         }
+        System.out.printf("Horas añadidas correctamente.%n%n");
     }
 
     private void anadirPrecioMaterial() {
@@ -130,6 +135,7 @@ public class Vista {
         } catch (OperationNotSupportedException e) {
             System.out.println(e.getMessage());
         }
+        System.out.printf("Precio añadido correctamente.%n%n");
     }
 
     private void cerrarRevision() {
@@ -139,24 +145,27 @@ public class Vista {
         } catch (OperationNotSupportedException e) {
             System.out.println(e.getMessage());
         }
+        System.out.printf("La revisión se ha cerrado correctamente.%n%n");
     }
 
     private void borrarCliente() {
         Consola.mostrarCabecera(Opcion.BORRAR_CLIENTE.toString());
         try {
-            controlador.borrar(Consola.leerCliente());
+            controlador.borrar(Consola.leerClienteDni());
         } catch (OperationNotSupportedException e) {
             System.out.println(e.getMessage());
         }
+        System.out.printf("El cliente ha sido borrado correctamente.%n%n");
     }
 
     private void borrarVehiculo() {
         Consola.mostrarCabecera(Opcion.BORRAR_VEHICULO.toString());
         try {
-            controlador.borrar(Consola.leerVehiculo());
+            controlador.borrar(Consola.leerVehiculoMatricula());
         } catch (OperationNotSupportedException e) {
             System.out.println(e.getMessage());
         }
+        System.out.printf("El vehículo ha sido borrado correctamente.%n%n");
     }
 
     private void borrarRevision() {
@@ -166,31 +175,32 @@ public class Vista {
         } catch (OperationNotSupportedException e) {
             System.out.println(e.getMessage());
         }
+        System.out.printf("La revisión ha sido borrada correctamente.%n%n");
     }
 
     private void listarClientes() {
         Consola.mostrarCabecera(Opcion.LISTAR_CLIENTES.toString());
-        System.out.printf("%s", controlador.getClientes().toString());
+        System.out.printf("%s%n", controlador.getClientes().toString());
     }
 
     private void listarVehiculos() {
         Consola.mostrarCabecera(Opcion.LISTAR_VEHICULOS.toString());
-        System.out.printf("%s", controlador.getVehiculos().toString());
+        System.out.printf("%s%n%n", controlador.getVehiculos().toString());
     }
 
     private void listarRevisiones() {
         Consola.mostrarCabecera(Opcion.LISTAR_REVISIONES.toString());
-        System.out.printf("%s", controlador.getRevisiones().toString());
+        System.out.printf("%s%n%n", controlador.getRevisiones().toString());
     }
 
     private void listarRevisionesCliente() {
         Consola.mostrarCabecera(Opcion.LISTAR_REVISIONES_CLIENTE.toString());
-        System.out.printf("%s", controlador.getRevisiones(Consola.leerCliente()).toString());
+        System.out.printf("%s%n%n", controlador.getRevisiones(Consola.leerCliente()).toString());
     }
 
     private void listarRevisionesVehiculo() {
         Consola.mostrarCabecera(Opcion.LISTAR_REVISIONES_VEHICULO.toString());
-        System.out.printf("%s", controlador.getRevisiones(Consola.leerVehiculo()).toString());
+        System.out.printf("%s%n%n", controlador.getRevisiones(Consola.leerVehiculo()).toString());
     }
 
     private void salir() {
