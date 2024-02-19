@@ -58,51 +58,61 @@ public class Vista {
         Consola.mostrarCabecera(Opcion.INSERTAR_CLIENTE.toString());
         try {
             controlador.insertar(Consola.leerCliente());
+            System.out.printf("Cliente creado correctamente.%n%n");
         } catch (OperationNotSupportedException e) {
             System.out.println(e.getMessage());
         }
-        System.out.printf("Cliente creado correctamente.%n%n");
     }
 
     private void insertarVehiculo() {
         Consola.mostrarCabecera(Opcion.INSERTAR_VEHICULO.toString());
         try {
             controlador.insertar(Consola.leerVehiculo());
+            System.out.printf("Vehículo creado correctamente.%n%n");
         } catch (OperationNotSupportedException e) {
             System.out.println(e.getMessage());
         }
-        System.out.printf("Vehículo creado correctamente.%n%n");
     }
 
     private void insertarRevision() {
         Consola.mostrarCabecera(Opcion.INSERTAR_REVISION.toString());
         try {
             controlador.insertar(Consola.leerRevision());
+            System.out.printf("Revisión creada correctamente.%n%n");
         } catch (OperationNotSupportedException | NullPointerException e) {
             System.out.println(e.getMessage());
         }
-        System.out.printf("Revisión creada correctamente.%n%n");
     }
 
     private void buscarCliente() {
         Consola.mostrarCabecera(Opcion.BUSCAR_CLIENTE.toString());
         Cliente cliente = Consola.leerClienteDni();
-        controlador.buscar(cliente);
-        System.out.printf("EXISTE: %s%n%n", controlador.buscar(cliente));
+        if (controlador.buscar(cliente) != null) {
+            System.out.printf("Cliente encontrado: %s%n%n", controlador.buscar(cliente));
+        } else {
+            System.out.printf("El cliente no existe.%n%n");
+        }
     }
 
     private void buscarVehiculo() {
         Consola.mostrarCabecera(Opcion.BUSCAR_VEHICULO.toString());
         Vehiculo vehiculo = Consola.leerVehiculoMatricula();
-        controlador.buscar(vehiculo);
-        System.out.printf("EXISTE: %s%n%n", controlador.buscar(vehiculo));
+        if (controlador.buscar(vehiculo) != null) {
+            System.out.printf("Vehículo encontrado: %s%n%n", controlador.buscar(vehiculo));
+        } else {
+            System.out.printf("El vehículo no existe.%n%n");
+        }
     }
 
     private void buscarRevision() {
         Consola.mostrarCabecera(Opcion.BUSCAR_REVISION.toString());
         Revision revision = Consola.leerRevision();
         controlador.buscar(revision);
-        System.out.printf("EXISTE: %s%n%n", controlador.buscar(revision));
+        if (controlador.buscar(revision) != null) {
+            System.out.printf("Revision encontrada: %s%n%n", controlador.buscar(revision));
+        } else {
+            System.out.printf("La revision no existe.%n%n");
+        }
     }
 
     private void modificarCliente() {
@@ -122,60 +132,61 @@ public class Vista {
         Consola.mostrarCabecera(Opcion.ANADIR_HORAS_REVISION.toString());
         try {
             controlador.anadirHoras(Consola.leerRevision(), Consola.leerHoras());
+            System.out.printf("Horas añadidas correctamente.%n%n");
         } catch (OperationNotSupportedException e) {
             System.out.println(e.getMessage());
         }
-        System.out.printf("Horas añadidas correctamente.%n%n");
     }
 
     private void anadirPrecioMaterial() {
         Consola.mostrarCabecera(Opcion.ANADIR_PRECIO_MATERIAL_REVISION.toString());
         try {
             controlador.anadirPrecioMaterial(Consola.leerRevision(), Consola.leerPrecioMaterial());
+            System.out.printf("Precio añadido correctamente.%n%n");
         } catch (OperationNotSupportedException e) {
             System.out.println(e.getMessage());
         }
-        System.out.printf("Precio añadido correctamente.%n%n");
+
     }
 
     private void cerrarRevision() {
         Consola.mostrarCabecera(Opcion.CERRAR_REVISION.toString());
         try {
             controlador.cerrar(Consola.leerRevision(), Consola.leerFechaCierre());
+            System.out.printf("La revisión se ha cerrado correctamente.%n%n");
         } catch (OperationNotSupportedException e) {
             System.out.println(e.getMessage());
         }
-        System.out.printf("La revisión se ha cerrado correctamente.%n%n");
     }
 
     private void borrarCliente() {
         Consola.mostrarCabecera(Opcion.BORRAR_CLIENTE.toString());
         try {
             controlador.borrar(Consola.leerClienteDni());
+            System.out.printf("El cliente ha sido borrado correctamente.%n%n");
         } catch (OperationNotSupportedException e) {
             System.out.println(e.getMessage());
         }
-        System.out.printf("El cliente ha sido borrado correctamente.%n%n");
     }
 
     private void borrarVehiculo() {
         Consola.mostrarCabecera(Opcion.BORRAR_VEHICULO.toString());
         try {
             controlador.borrar(Consola.leerVehiculoMatricula());
+            System.out.printf("El vehículo ha sido borrado correctamente.%n%n");
         } catch (OperationNotSupportedException e) {
             System.out.println(e.getMessage());
         }
-        System.out.printf("El vehículo ha sido borrado correctamente.%n%n");
     }
 
     private void borrarRevision() {
         Consola.mostrarCabecera(Opcion.BORRAR_REVISION.toString());
         try {
             controlador.borrar(Consola.leerRevision());
+            System.out.printf("La revisión ha sido borrada correctamente.%n%n");
         } catch (OperationNotSupportedException e) {
             System.out.println(e.getMessage());
         }
-        System.out.printf("La revisión ha sido borrada correctamente.%n%n");
     }
 
     private void listarClientes() {
@@ -195,12 +206,12 @@ public class Vista {
 
     private void listarRevisionesCliente() {
         Consola.mostrarCabecera(Opcion.LISTAR_REVISIONES_CLIENTE.toString());
-        System.out.printf("%s%n%n", controlador.getRevisiones(Consola.leerCliente()).toString());
+        System.out.printf("%s%n%n", controlador.getRevisiones(Consola.leerClienteDni()).toString());
     }
 
     private void listarRevisionesVehiculo() {
         Consola.mostrarCabecera(Opcion.LISTAR_REVISIONES_VEHICULO.toString());
-        System.out.printf("%s%n%n", controlador.getRevisiones(Consola.leerVehiculo()).toString());
+        System.out.printf("%s%n%n", controlador.getRevisiones(Consola.leerVehiculoMatricula()).toString());
     }
 
     private void salir() {

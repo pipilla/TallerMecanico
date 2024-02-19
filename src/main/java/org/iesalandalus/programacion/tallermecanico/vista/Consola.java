@@ -48,12 +48,11 @@ public class Consola {
     }
 
     private static LocalDate leerFecha(String mensaje) {
-        System.out.print(mensaje);
         LocalDate fecha = null;
         boolean fechaCorrecta = false;
         do {
             try {
-                fecha = LocalDate.parse(Entrada.cadena(), Revision.FORMATO_FECHA);
+                fecha = LocalDate.parse(leerCadena(mensaje), Revision.FORMATO_FECHA);
                 fechaCorrecta = true;
             } catch (DateTimeParseException ignored){
                 System.out.printf("La fecha introducida tiene un formato inválido (%s).%n", CADENA_FORMATO_FECHA);
@@ -219,7 +218,7 @@ public class Consola {
         do {
             fechaCierre = leerFecha("Dime la fecha de cierre: ");
             try {
-                Revision revision = new Revision(Cliente.get("11111111H"), Vehiculo.get("1111JKK"), LocalDate.now());
+                Revision revision = new Revision(Cliente.get("11111111H"), Vehiculo.get("1111JKK"), LocalDate.of(1900, 1, 1));
                 revision.cerrar(fechaCierre);
                 fechaCierreCorrecta = true;
             } catch (IllegalArgumentException | NullPointerException | OperationNotSupportedException e) {
