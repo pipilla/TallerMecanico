@@ -191,7 +191,7 @@ public class Vista {
 
     private void listarClientes() {
         Consola.mostrarCabecera(Opcion.LISTAR_CLIENTES.toString());
-        System.out.printf("%s%n", controlador.getClientes().toString());
+        System.out.printf("%s%n%n", controlador.getClientes().toString());
     }
 
     private void listarVehiculos() {
