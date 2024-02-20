@@ -26,7 +26,7 @@ public enum Opcion {
 
     private final int numeroOpcion;
     private final String mensaje;
-    static Map<Integer, Opcion> opciones;
+    static final Map<Integer, Opcion> opciones;
 
     static {
         opciones = new HashMap<>();
@@ -45,7 +45,7 @@ public enum Opcion {
     }
 
     public static Opcion get(int numeroOpcion) {
-        if (opciones.get(numeroOpcion) == null) {
+        if (!esValida(numeroOpcion)) {
             throw new IllegalArgumentException("Opción incorrecta.");
         }
         return opciones.get(numeroOpcion);

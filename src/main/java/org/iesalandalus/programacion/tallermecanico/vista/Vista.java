@@ -9,6 +9,7 @@ import javax.naming.OperationNotSupportedException;
 import java.util.Objects;
 
 public class Vista {
+    public static final String LISTADO_DEFECTO = "%s%n%n";
     private Controlador controlador;
 
     public void setControlador(Controlador controlador) {
@@ -191,27 +192,27 @@ public class Vista {
 
     private void listarClientes() {
         Consola.mostrarCabecera(Opcion.LISTAR_CLIENTES.toString());
-        System.out.printf("%s%n%n", controlador.getClientes().toString());
+        System.out.printf(LISTADO_DEFECTO, controlador.getClientes().toString());
     }
 
     private void listarVehiculos() {
         Consola.mostrarCabecera(Opcion.LISTAR_VEHICULOS.toString());
-        System.out.printf("%s%n%n", controlador.getVehiculos().toString());
+        System.out.printf(LISTADO_DEFECTO, controlador.getVehiculos().toString());
     }
 
     private void listarRevisiones() {
         Consola.mostrarCabecera(Opcion.LISTAR_REVISIONES.toString());
-        System.out.printf("%s%n%n", controlador.getRevisiones().toString());
+        System.out.printf(LISTADO_DEFECTO, controlador.getRevisiones().toString());
     }
 
     private void listarRevisionesCliente() {
         Consola.mostrarCabecera(Opcion.LISTAR_REVISIONES_CLIENTE.toString());
-        System.out.printf("%s%n%n", controlador.getRevisiones(Consola.leerClienteDni()).toString());
+        System.out.printf(LISTADO_DEFECTO, controlador.getRevisiones(Consola.leerClienteDni()).toString());
     }
 
     private void listarRevisionesVehiculo() {
         Consola.mostrarCabecera(Opcion.LISTAR_REVISIONES_VEHICULO.toString());
-        System.out.printf("%s%n%n", controlador.getRevisiones(Consola.leerVehiculoMatricula()).toString());
+        System.out.printf(LISTADO_DEFECTO, controlador.getRevisiones(Consola.leerVehiculoMatricula()).toString());
     }
 
     private void salir() {

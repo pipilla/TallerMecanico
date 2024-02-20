@@ -12,6 +12,8 @@ import java.util.Objects;
 
 public class Consola {
     private static final String CADENA_FORMATO_FECHA = "dia/mes/año";
+    public static final String DNI_EJEMPLO = "11111111H";
+    public static final String MATRICULA_DEFECTO = "1111JKK";
 
     private Consola(){}
 
@@ -104,7 +106,7 @@ public class Consola {
             nombre = leerCadena("Dime el nuevo nombre del cliente: ");
             if (!nombre.isBlank()) {
                 try {
-                    new Cliente(nombre, "11111111H", "600600600");
+                    new Cliente(nombre, DNI_EJEMPLO, "600600600");
                     nombreCorrecto = true;
                 } catch (IllegalArgumentException| NullPointerException e) {
                     System.out.println(e.getMessage());
@@ -123,7 +125,7 @@ public class Consola {
             telefono = leerCadena("Dime el nuevo telefono del cliente: ");
             if (!telefono.isBlank()) {
                 try {
-                    new Cliente("Juan", "11111111H", telefono);
+                    new Cliente("Juan", DNI_EJEMPLO, telefono);
                     telefonoCorrecto = true;
                 } catch (IllegalArgumentException| NullPointerException e) {
                     System.out.println(e.getMessage());
@@ -186,7 +188,7 @@ public class Consola {
         do {
             horas = leerEntero("Dime las horas que quieres añadir: ");
             try {
-                Revision revision = new Revision(Cliente.get("11111111H"), Vehiculo.get("1111JKK"), LocalDate.now());
+                Revision revision = new Revision(Cliente.get(DNI_EJEMPLO), Vehiculo.get(MATRICULA_DEFECTO), LocalDate.now());
                 revision.anadirHoras(horas);
                 horasCorrectas = true;
             } catch (IllegalArgumentException | NullPointerException | OperationNotSupportedException e) {
@@ -202,7 +204,7 @@ public class Consola {
         do {
             precioMaterial = leerReal("Dime el precio que quieres añadir: ");
             try {
-                Revision revision = new Revision(Cliente.get("11111111H"), Vehiculo.get("1111JKK"), LocalDate.now());
+                Revision revision = new Revision(Cliente.get(DNI_EJEMPLO), Vehiculo.get(MATRICULA_DEFECTO), LocalDate.now());
                 revision.anadirPrecioMaterial(precioMaterial);
                 precioCorrecto = true;
             } catch (IllegalArgumentException | NullPointerException | OperationNotSupportedException e) {
@@ -218,7 +220,7 @@ public class Consola {
         do {
             fechaCierre = leerFecha("Dime la fecha de cierre: ");
             try {
-                Revision revision = new Revision(Cliente.get("11111111H"), Vehiculo.get("1111JKK"), LocalDate.of(1900, 1, 1));
+                Revision revision = new Revision(Cliente.get(DNI_EJEMPLO), Vehiculo.get(MATRICULA_DEFECTO), LocalDate.of(1900, 1, 1));
                 revision.cerrar(fechaCierre);
                 fechaCierreCorrecta = true;
             } catch (IllegalArgumentException | NullPointerException | OperationNotSupportedException e) {

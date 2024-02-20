@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class Controlador {
-    private Vista vista;
-    private Modelo modelo;
+    private final Vista vista;
+    private final Modelo modelo;
 
     public Controlador(Modelo modelo, Vista vista){
         Objects.requireNonNull(modelo, "El modelo no puede ser nulo.");
