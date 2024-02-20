@@ -18,7 +18,7 @@ public class Vista {
     }
 
     public void comenzar() {
-        Opcion opcion = null;
+        Opcion opcion;
         do {
             Consola.mostrarMenu();
             opcion = Consola.elegirOpcion();
@@ -118,7 +118,7 @@ public class Vista {
 
     private void modificarCliente() {
         Consola.mostrarCabecera(Opcion.MODIFICAR_CLIENTE.toString());
-        boolean modificado = false;
+        boolean modificado;
         try {
             modificado = controlador.modificar(Consola.leerClienteDni(), Consola.leerNuevoNombre(), Consola.leerNuevoTelefono());
             if (modificado) {
