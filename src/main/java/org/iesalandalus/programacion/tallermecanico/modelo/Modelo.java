@@ -18,7 +18,9 @@ public class Modelo {
     private Revisiones revisiones;
     private Vehiculos vehiculos;
 
-    public Modelo() {}
+    public Modelo() {
+        comenzar();
+    }
     public void comenzar() {
         clientes = new Clientes();
         revisiones = new Revisiones();

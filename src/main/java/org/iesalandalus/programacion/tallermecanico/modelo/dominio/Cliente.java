@@ -74,10 +74,6 @@ public class Cliente {
     }
 
     public static Cliente get(String dni) {
-        Objects.requireNonNull(dni, "El DNI no puede ser nulo.");
-        if (!dni.matches(ER_DNI)) {
-            throw new IllegalArgumentException("El DNI no tiene un formato válido.");
-        }
         return new Cliente("Nombre Defecto", dni, "000000000");
     }
 
