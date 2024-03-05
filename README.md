@@ -35,10 +35,12 @@ Para ello te muestro un diagrama de clases (en el que cuando se expresa cardinal
 
 
 #### Primeros Pasos
-1. Lo primero que debes hacer es mezclar tu rama `sprint_inicial` con la rama `master` y crear un nueva rama etiquetada como `refactorizacion_herencia`.
-2. Añade el remote de mi repositorio y haz un `pull` del mismo de la rama `master`.
-3. Cambia tu repositorio a la rama `refactorizacion_herencia` y haz otro pull de mi remote.
-4. Modifica el archivo `README.md` para que incluya tu nombre en el apartado "Alumno". Realiza tu **primer commit**.
+1. Lo primero que debes hacer es mezclar tu rama `sprint_inicial` con la rama `master`.
+2. Luego crea un nueva rama etiquetada como `refactorizacion_herencia`, a partir de la rama `master` que anteriormente habías mezclado..
+3. Añade el remote de mi repositorio como `profesor` y haz un `pull`.
+4. Cambiate a tu rama `master` y mezclala con la master de `profesor`. Añade tu nombre al `README.md`, haz `commit` y `push`a tu repositorio en la rama `master`.
+5. Cambia tu repositorio a la rama `refactorizacion_herencia` y mezclala con la misma rama de `profesor`.
+6. Modifica el archivo `README.md` para que incluya tu nombre en el apartado "Alumno". Realiza tu **primer commit** en esta nueva rama.
 
 #### Adecuación del `dominio`
 1. Extrae la clase abstracta `Trabajo` a partir de la clase `Revision` anterior.
