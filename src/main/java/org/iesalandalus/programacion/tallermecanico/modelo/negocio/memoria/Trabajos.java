@@ -1,9 +1,10 @@
-package org.iesalandalus.programacion.tallermecanico.modelo.negocio;
+package org.iesalandalus.programacion.tallermecanico.modelo.negocio.memoria;
 
 import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Cliente;
-import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Revision;
+import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Mecanico;
 import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Trabajo;
 import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Vehiculo;
+import org.iesalandalus.programacion.tallermecanico.modelo.negocio.ITrabajos;
 
 import javax.naming.OperationNotSupportedException;
 import java.time.LocalDate;
@@ -11,17 +12,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Trabajos {
+public class Trabajos implements ITrabajos {
     private List<Trabajo> coleccionTrabajos;
 
     public Trabajos() {
         coleccionTrabajos = new ArrayList<>();
     }
 
+    @Override
     public List<Trabajo> get() {
         return coleccionTrabajos = new ArrayList<>(coleccionTrabajos);
     }
 
+    @Override
     public List<Trabajo> get(Cliente cliente) {
         List<Trabajo> coleccionTrabajosCliente = new ArrayList<>();
         for (Trabajo trabajo : coleccionTrabajos) {
@@ -32,6 +35,7 @@ public class Trabajos {
         return coleccionTrabajosCliente;
     }
 
+    @Override
     public List<Trabajo> get(Vehiculo vehiculo) {
         List<Trabajo> coleccionTrabajosVehiculo = new ArrayList<>();
         for (Trabajo trabajo : coleccionTrabajos) {
@@ -42,13 +46,14 @@ public class Trabajos {
         return coleccionTrabajosVehiculo;
     }
 
+    @Override
     public void insertar(Trabajo trabajo) throws OperationNotSupportedException {
         Objects.requireNonNull(trabajo, "No se puede insertar un trabajo nulo.");
-        comprobarRevision(trabajo.getCliente(), trabajo.getVehiculo(), trabajo.getFechaInicio());
+        comprobarTrabajo(trabajo.getCliente(), trabajo.getVehiculo(), trabajo.getFechaInicio());
         coleccionTrabajos.add(trabajo);
     }
 
-    private void comprobarRevision(Cliente cliente, Vehiculo vehiculo, LocalDate fechaTrabajo) throws OperationNotSupportedException {
+    private void comprobarTrabajo(Cliente cliente, Vehiculo vehiculo, LocalDate fechaTrabajo) throws OperationNotSupportedException {
         Objects.requireNonNull(cliente, "El cliente no puede ser nulo.");
         Objects.requireNonNull(vehiculo, "El vehiculo no puede ser nulo.");
         Objects.requireNonNull(fechaTrabajo, "La fecha no puede ser nula.");
@@ -71,7 +76,7 @@ public class Trabajos {
         }
     }
 
-    private Trabajo getRevision(Revision trabajo) throws OperationNotSupportedException {
+    private Trabajo getTrabajo(Trabajo trabajo) throws OperationNotSupportedException {
         Objects.requireNonNull(trabajo, "No puedo operar sobre un trabajo nulo.");
         if (buscar(trabajo) == null) {
             throw new OperationNotSupportedException("No existe ningún trabajo igual.");
@@ -79,29 +84,38 @@ public class Trabajos {
         return buscar(trabajo);
     }
 
-    public void anadirHoras(Revision revision, int horas) throws OperationNotSupportedException {
-        getRevision(revision).anadirHoras(horas);
+    @Override
+    public void anadirHoras(Trabajo trabajo, int horas) throws OperationNotSupportedException {
+        buscar(Trabajo.get(trabajo.getVehiculo())).anadirHoras(horas);
     }
 
+    @Override
     public void anadirPrecioMaterial(Trabajo trabajo, float precioMaterial) throws OperationNotSupportedException {
-        Trabajo.copiar(trabajo).anadirPrecioMaterial(precioMaterial);
+        if (buscar(trabajo) instanceof Mecanico trabajoMecanico) {
+            trabajoMecanico.anadirPrecioMaterial(precioMaterial);
+        } else {
+            throw new OperationNotSupportedException("Solo se puede añadir un precio de material a un trabajo mecánico.");
+        }
     }
 
+    @Override
     public void cerrar(Trabajo trabajo, LocalDate fechaFin) throws OperationNotSupportedException {
-        trabajo.cerrar(fechaFin);
+        buscar(Trabajo.get(trabajo.getVehiculo())).cerrar(fechaFin);
     }
 
+    @Override
     public Trabajo buscar(Trabajo trabajo) {
-        Objects.requireNonNull(trabajo, "No se puede buscar una revisión nula.");
+        Objects.requireNonNull(trabajo, "No se puede buscar un trabajo nulo.");
         int indice = coleccionTrabajos.indexOf(trabajo);
         return indice == -1 ? null : coleccionTrabajos.get(indice);
     }
 
-    public void borrar(Revision revision) throws OperationNotSupportedException {
-        Objects.requireNonNull(revision, "No se puede borrar una trabajo nulo.");
-        if (!coleccionTrabajos.contains(revision)) {
+    @Override
+    public void borrar(Trabajo trabajo) throws OperationNotSupportedException {
+        Objects.requireNonNull(trabajo, "No se puede borrar una trabajo nulo.");
+        if (!coleccionTrabajos.contains(trabajo)) {
             throw new OperationNotSupportedException("No existe ningún trabajo igual.");
         }
-        coleccionTrabajos.remove(revision);
+        coleccionTrabajos.remove(trabajo);
     }
 }

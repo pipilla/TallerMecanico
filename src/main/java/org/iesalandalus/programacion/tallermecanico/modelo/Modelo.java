@@ -3,9 +3,10 @@ package org.iesalandalus.programacion.tallermecanico.modelo;
 import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Cliente;
 import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Revision;
 import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Vehiculo;
-import org.iesalandalus.programacion.tallermecanico.modelo.negocio.Clientes;
-import org.iesalandalus.programacion.tallermecanico.modelo.negocio.Trabajos;
-import org.iesalandalus.programacion.tallermecanico.modelo.negocio.Vehiculos;
+import org.iesalandalus.programacion.tallermecanico.modelo.negocio.memoria.Clientes;
+import org.iesalandalus.programacion.tallermecanico.modelo.negocio.IVehiculos;
+import org.iesalandalus.programacion.tallermecanico.modelo.negocio.memoria.Trabajos;
+import org.iesalandalus.programacion.tallermecanico.modelo.negocio.memoria.Vehiculos;
 
 import javax.naming.OperationNotSupportedException;
 import java.time.LocalDate;
@@ -16,7 +17,7 @@ import java.util.List;
 public class Modelo {
     private Clientes clientes;
     private Trabajos trabajos;
-    private Vehiculos vehiculos;
+    private IVehiculos IVehiculos;
 
     public Modelo() {
         comenzar();
@@ -24,7 +25,7 @@ public class Modelo {
     public void comenzar() {
         clientes = new Clientes();
         trabajos = new Trabajos();
-        vehiculos = new Vehiculos();
+        IVehiculos = new Vehiculos();
     }
 
     public void terminar() {
@@ -36,7 +37,7 @@ public class Modelo {
     }
 
     public void insertar(Vehiculo vehiculo) throws OperationNotSupportedException {
-        vehiculos.insertar(vehiculo);
+        IVehiculos.insertar(vehiculo);
     }
 
     public void insertar(Revision revision) throws OperationNotSupportedException {
@@ -48,7 +49,7 @@ public class Modelo {
     }
 
     public Vehiculo buscar(Vehiculo vehiculo) {
-        return vehiculos.buscar(vehiculo);
+        return IVehiculos.buscar(vehiculo);
     }
 
     public Revision buscar(Revision revision) {
@@ -81,7 +82,7 @@ public class Modelo {
         for (Revision revision : trabajos.get(vehiculo)) {
             borrar(revision);
         }
-        vehiculos.borrar(vehiculo);
+        IVehiculos.borrar(vehiculo);
     }
 
     public void borrar(Revision revision) throws OperationNotSupportedException {
@@ -97,7 +98,7 @@ public class Modelo {
     }
 
     public List<Vehiculo> getVehiculos() {
-        return new ArrayList<>(vehiculos.get());
+        return new ArrayList<>(IVehiculos.get());
     }
 
     public List<Revision> getRevisiones() {

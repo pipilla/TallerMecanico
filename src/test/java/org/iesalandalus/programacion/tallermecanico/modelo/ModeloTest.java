@@ -37,7 +37,7 @@ class ModeloTest {
     private AutoCloseable procesadorAnotaciones;
     private MockedConstruction<Cliente> controladorCreacionMockCliente;
     private MockedConstruction<Clientes> controladorCreacionMockClientes;
-    private MockedConstruction<Vehiculos> controladorCreacionMockVehiculos;
+    private MockedConstruction<IVehiculos> controladorCreacionMockVehiculos;
     private MockedConstruction<Revision> controladorCreacionMockRevision;
     private MockedConstruction<Mecanico> controladorCreacionMockMecanico;
     private MockedConstruction<Trabajos> controladorCreacionMockTrabajos;
