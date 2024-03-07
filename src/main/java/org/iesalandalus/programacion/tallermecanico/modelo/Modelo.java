@@ -4,7 +4,7 @@ import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Cliente;
 import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Revision;
 import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Vehiculo;
 import org.iesalandalus.programacion.tallermecanico.modelo.negocio.Clientes;
-import org.iesalandalus.programacion.tallermecanico.modelo.negocio.Revisiones;
+import org.iesalandalus.programacion.tallermecanico.modelo.negocio.Trabajos;
 import org.iesalandalus.programacion.tallermecanico.modelo.negocio.Vehiculos;
 
 import javax.naming.OperationNotSupportedException;
@@ -15,7 +15,7 @@ import java.util.List;
 
 public class Modelo {
     private Clientes clientes;
-    private Revisiones revisiones;
+    private Trabajos trabajos;
     private Vehiculos vehiculos;
 
     public Modelo() {
@@ -23,7 +23,7 @@ public class Modelo {
     }
     public void comenzar() {
         clientes = new Clientes();
-        revisiones = new Revisiones();
+        trabajos = new Trabajos();
         vehiculos = new Vehiculos();
     }
 
@@ -40,7 +40,7 @@ public class Modelo {
     }
 
     public void insertar(Revision revision) throws OperationNotSupportedException {
-        revisiones.insertar(new Revision(buscar(revision.getCliente()), buscar(revision.getVehiculo()), revision.getFechaInicio()));
+        trabajos.insertar(new Revision(buscar(revision.getCliente()), buscar(revision.getVehiculo()), revision.getFechaInicio()));
     }
 
     public Cliente buscar(Cliente cliente) {
@@ -52,7 +52,7 @@ public class Modelo {
     }
 
     public Revision buscar(Revision revision) {
-        return new Revision(revisiones.buscar(revision));
+        return new Revision(trabajos.buscar(revision));
     }
 
     public boolean modificar(Cliente cliente, String nombre, String telefono) throws OperationNotSupportedException {
@@ -60,32 +60,32 @@ public class Modelo {
     }
 
     public void anadirHoras(Revision revision, int horas) throws OperationNotSupportedException {
-        revisiones.anadirHoras(revision, horas);
+        trabajos.anadirHoras(revision, horas);
     }
     public void anadirPrecioMaterial(Revision revision, float precioMaterial) throws OperationNotSupportedException {
-        revisiones.anadirPrecioMaterial(revision, precioMaterial);
+        trabajos.anadirPrecioMaterial(revision, precioMaterial);
     }
 
     public void cerrar(Revision revision, LocalDate fechaFin) throws OperationNotSupportedException {
-        revisiones.cerrar(revision, fechaFin);
+        trabajos.cerrar(revision, fechaFin);
     }
 
     public void borrar(Cliente cliente) throws OperationNotSupportedException {
-        for (Revision revision : revisiones.get(cliente)) {
+        for (Revision revision : trabajos.get(cliente)) {
             borrar(revision);
         }
         clientes.borrar(cliente);
     }
 
     public void borrar(Vehiculo vehiculo) throws OperationNotSupportedException {
-        for (Revision revision : revisiones.get(vehiculo)) {
+        for (Revision revision : trabajos.get(vehiculo)) {
             borrar(revision);
         }
         vehiculos.borrar(vehiculo);
     }
 
     public void borrar(Revision revision) throws OperationNotSupportedException {
-        revisiones.borrar(revision);
+        trabajos.borrar(revision);
     }
 
     public List<Cliente> getClientes() {
@@ -102,7 +102,7 @@ public class Modelo {
 
     public List<Revision> getRevisiones() {
         List<Revision> nuevasRevisiones = new ArrayList<>();
-        for (Revision revision : revisiones.get()) {
+        for (Revision revision : trabajos.get()) {
             nuevasRevisiones.add(new Revision(revision));
         }
         return nuevasRevisiones;
@@ -110,7 +110,7 @@ public class Modelo {
 
     public List<Revision> getRevisiones(Cliente cliente) {
         List<Revision> nuevasRevisiones = new ArrayList<>();
-        for (Revision revision : revisiones.get(cliente)) {
+        for (Revision revision : trabajos.get(cliente)) {
             nuevasRevisiones.add(new Revision(revision));
         }
         return nuevasRevisiones;
@@ -118,7 +118,7 @@ public class Modelo {
 
     public List<Revision> getRevisiones(Vehiculo vehiculo) {
         List<Revision> nuevasRevisiones = new ArrayList<>();
-        for (Revision revision : revisiones.get(vehiculo)) {
+        for (Revision revision : trabajos.get(vehiculo)) {
             nuevasRevisiones.add(new Revision(revision));
         }
         return nuevasRevisiones;
