@@ -1,9 +1,9 @@
-package org.iesalandalus.programacion.tallermecanico.vista;
+package org.iesalandalus.programacion.tallermecanico.vista.eventos;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public enum Opcion {
+public enum Evento {
     INSERTAR_CLIENTE(1, "Insertar cliente"),
     BUSCAR_CLIENTE(2, "Buscar cliente"),
     BORRAR_CLIENTE(3,"Borrar cliente"),
@@ -24,35 +24,35 @@ public enum Opcion {
     CERRAR_REVISION(18, "Cerrar revision"),
     SALIR(19, "Salir");
 
-    private final int numeroOpcion;
-    private final String mensaje;
-    static final Map<Integer, Opcion> opciones;
+    private final int codigo;
+    private final String texto;
+    static final Map<Integer, Evento> opciones;
 
     static {
         opciones = new HashMap<>();
-        for (Opcion opcion : Opcion.values()) {
-            opciones.put(opcion.numeroOpcion, opcion);
+        for (Evento evento : Evento.values()) {
+            opciones.put(evento.codigo, evento);
         }
     }
 
-    Opcion(int numeroOpcion, String mensaje) {
-        this.numeroOpcion = numeroOpcion;
-        this.mensaje = mensaje;
+    Evento(int codigo, String texto) {
+        this.codigo = codigo;
+        this.texto = texto;
     }
 
-    public static boolean esValida(int numeroOpcion) {
-        return opciones.containsKey(numeroOpcion);
+    public static boolean esValido(int codigo) {
+        return opciones.containsKey(codigo);
     }
 
-    public static Opcion get(int numeroOpcion) {
-        if (!esValida(numeroOpcion)) {
+    public static Evento get(int codigo) {
+        if (!esValido(codigo)) {
             throw new IllegalArgumentException("Opción incorrecta.");
         }
-        return opciones.get(numeroOpcion);
+        return opciones.get(codigo);
     }
 
     @Override
     public String toString() {
-        return String.format("%s. %s", this.numeroOpcion, this.mensaje);
+        return String.format("%s. %s", this.codigo, this.texto);
     }
 }

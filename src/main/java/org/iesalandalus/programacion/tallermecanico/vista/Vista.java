@@ -4,6 +4,7 @@ import org.iesalandalus.programacion.tallermecanico.controlador.Controlador;
 import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Cliente;
 import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Revision;
 import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Vehiculo;
+import org.iesalandalus.programacion.tallermecanico.vista.eventos.Evento;
 
 import javax.naming.OperationNotSupportedException;
 import java.util.Objects;
@@ -18,21 +19,21 @@ public class Vista {
     }
 
     public void comenzar() {
-        Opcion opcion;
+        Evento evento;
         do {
             Consola.mostrarMenu();
-            opcion = Consola.elegirOpcion();
+            evento = Consola.elegirOpcion();
             System.out.println();
-            ejecutar(opcion);
-        } while (opcion != Opcion.SALIR);
+            ejecutar(evento);
+        } while (evento != Evento.SALIR);
     }
 
     public void terminar() {
         System.out.printf("¡HASTA PRONTO!%n");
     }
 
-    private void ejecutar(Opcion opcion) {
-        switch (opcion) {
+    private void ejecutar(Evento evento) {
+        switch (evento) {
             case INSERTAR_CLIENTE -> insertarCliente();
             case BUSCAR_CLIENTE -> buscarCliente();
             case BORRAR_CLIENTE -> borrarCliente();
@@ -56,7 +57,7 @@ public class Vista {
     }
 
     private void insertarCliente() {
-        Consola.mostrarCabecera(Opcion.INSERTAR_CLIENTE.toString());
+        Consola.mostrarCabecera(Evento.INSERTAR_CLIENTE.toString());
         try {
             controlador.insertar(Consola.leerCliente());
             System.out.printf("Cliente creado correctamente.%n%n");
@@ -66,7 +67,7 @@ public class Vista {
     }
 
     private void insertarVehiculo() {
-        Consola.mostrarCabecera(Opcion.INSERTAR_VEHICULO.toString());
+        Consola.mostrarCabecera(Evento.INSERTAR_VEHICULO.toString());
         try {
             controlador.insertar(Consola.leerVehiculo());
             System.out.printf("Vehículo creado correctamente.%n%n");
@@ -76,7 +77,7 @@ public class Vista {
     }
 
     private void insertarRevision() {
-        Consola.mostrarCabecera(Opcion.INSERTAR_REVISION.toString());
+        Consola.mostrarCabecera(Evento.INSERTAR_REVISION.toString());
         try {
             controlador.insertar(Consola.leerRevision());
             System.out.printf("Revisión creada correctamente.%n%n");
@@ -86,7 +87,7 @@ public class Vista {
     }
 
     private void buscarCliente() {
-        Consola.mostrarCabecera(Opcion.BUSCAR_CLIENTE.toString());
+        Consola.mostrarCabecera(Evento.BUSCAR_CLIENTE.toString());
         Cliente cliente = Consola.leerClienteDni();
         if (controlador.buscar(cliente) != null) {
             System.out.printf("Cliente encontrado: %s%n%n", controlador.buscar(cliente));
@@ -96,7 +97,7 @@ public class Vista {
     }
 
     private void buscarVehiculo() {
-        Consola.mostrarCabecera(Opcion.BUSCAR_VEHICULO.toString());
+        Consola.mostrarCabecera(Evento.BUSCAR_VEHICULO.toString());
         Vehiculo vehiculo = Consola.leerVehiculoMatricula();
         if (controlador.buscar(vehiculo) != null) {
             System.out.printf("Vehículo encontrado: %s%n%n", controlador.buscar(vehiculo));
@@ -106,7 +107,7 @@ public class Vista {
     }
 
     private void buscarRevision() {
-        Consola.mostrarCabecera(Opcion.BUSCAR_REVISION.toString());
+        Consola.mostrarCabecera(Evento.BUSCAR_REVISION.toString());
         Revision revision = Consola.leerRevision();
         controlador.buscar(revision);
         if (controlador.buscar(revision) != null) {
@@ -117,7 +118,7 @@ public class Vista {
     }
 
     private void modificarCliente() {
-        Consola.mostrarCabecera(Opcion.MODIFICAR_CLIENTE.toString());
+        Consola.mostrarCabecera(Evento.MODIFICAR_CLIENTE.toString());
         boolean modificado;
         try {
             modificado = controlador.modificar(Consola.leerClienteDni(), Consola.leerNuevoNombre(), Consola.leerNuevoTelefono());
@@ -130,7 +131,7 @@ public class Vista {
     }
 
     private void anadirHoras() {
-        Consola.mostrarCabecera(Opcion.ANADIR_HORAS_REVISION.toString());
+        Consola.mostrarCabecera(Evento.ANADIR_HORAS_REVISION.toString());
         try {
             controlador.anadirHoras(Consola.leerRevision(), Consola.leerHoras());
             System.out.printf("Horas añadidas correctamente.%n%n");
@@ -140,7 +141,7 @@ public class Vista {
     }
 
     private void anadirPrecioMaterial() {
-        Consola.mostrarCabecera(Opcion.ANADIR_PRECIO_MATERIAL_REVISION.toString());
+        Consola.mostrarCabecera(Evento.ANADIR_PRECIO_MATERIAL_REVISION.toString());
         try {
             controlador.anadirPrecioMaterial(Consola.leerRevision(), Consola.leerPrecioMaterial());
             System.out.printf("Precio añadido correctamente.%n%n");
@@ -151,7 +152,7 @@ public class Vista {
     }
 
     private void cerrarRevision() {
-        Consola.mostrarCabecera(Opcion.CERRAR_REVISION.toString());
+        Consola.mostrarCabecera(Evento.CERRAR_REVISION.toString());
         try {
             controlador.cerrar(Consola.leerRevision(), Consola.leerFechaCierre());
             System.out.printf("La revisión se ha cerrado correctamente.%n%n");
@@ -161,7 +162,7 @@ public class Vista {
     }
 
     private void borrarCliente() {
-        Consola.mostrarCabecera(Opcion.BORRAR_CLIENTE.toString());
+        Consola.mostrarCabecera(Evento.BORRAR_CLIENTE.toString());
         try {
             controlador.borrar(Consola.leerClienteDni());
             System.out.printf("El cliente ha sido borrado correctamente.%n%n");
@@ -171,7 +172,7 @@ public class Vista {
     }
 
     private void borrarVehiculo() {
-        Consola.mostrarCabecera(Opcion.BORRAR_VEHICULO.toString());
+        Consola.mostrarCabecera(Evento.BORRAR_VEHICULO.toString());
         try {
             controlador.borrar(Consola.leerVehiculoMatricula());
             System.out.printf("El vehículo ha sido borrado correctamente.%n%n");
@@ -181,7 +182,7 @@ public class Vista {
     }
 
     private void borrarRevision() {
-        Consola.mostrarCabecera(Opcion.BORRAR_REVISION.toString());
+        Consola.mostrarCabecera(Evento.BORRAR_REVISION.toString());
         try {
             controlador.borrar(Consola.leerRevision());
             System.out.printf("La revisión ha sido borrada correctamente.%n%n");
@@ -191,27 +192,27 @@ public class Vista {
     }
 
     private void listarClientes() {
-        Consola.mostrarCabecera(Opcion.LISTAR_CLIENTES.toString());
+        Consola.mostrarCabecera(Evento.LISTAR_CLIENTES.toString());
         System.out.printf(LISTADO_DEFECTO, controlador.getClientes().toString());
     }
 
     private void listarVehiculos() {
-        Consola.mostrarCabecera(Opcion.LISTAR_VEHICULOS.toString());
+        Consola.mostrarCabecera(Evento.LISTAR_VEHICULOS.toString());
         System.out.printf(LISTADO_DEFECTO, controlador.getVehiculos().toString());
     }
 
     private void listarRevisiones() {
-        Consola.mostrarCabecera(Opcion.LISTAR_REVISIONES.toString());
+        Consola.mostrarCabecera(Evento.LISTAR_REVISIONES.toString());
         System.out.printf(LISTADO_DEFECTO, controlador.getRevisiones().toString());
     }
 
     private void listarRevisionesCliente() {
-        Consola.mostrarCabecera(Opcion.LISTAR_REVISIONES_CLIENTE.toString());
+        Consola.mostrarCabecera(Evento.LISTAR_REVISIONES_CLIENTE.toString());
         System.out.printf(LISTADO_DEFECTO, controlador.getRevisiones(Consola.leerClienteDni()).toString());
     }
 
     private void listarRevisionesVehiculo() {
-        Consola.mostrarCabecera(Opcion.LISTAR_REVISIONES_VEHICULO.toString());
+        Consola.mostrarCabecera(Evento.LISTAR_REVISIONES_VEHICULO.toString());
         System.out.printf(LISTADO_DEFECTO, controlador.getRevisiones(Consola.leerVehiculoMatricula()).toString());
     }
 

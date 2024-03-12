@@ -3,6 +3,7 @@ package org.iesalandalus.programacion.tallermecanico.vista;
 import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Cliente;
 import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Revision;
 import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Vehiculo;
+import org.iesalandalus.programacion.tallermecanico.vista.eventos.Evento;
 import org.iesalandalus.programacion.utilidades.Entrada;
 
 import javax.naming.OperationNotSupportedException;
@@ -25,8 +26,8 @@ public class Consola {
 
     public static void mostrarMenu() {
         mostrarCabecera("MENÚ");
-        for (Opcion opcion : Opcion.values()) {
-            System.out.printf("%s%n", opcion);
+        for (Evento evento : Evento.values()) {
+            System.out.printf("%s%n", evento);
         }
         System.out.println();
     }
@@ -63,12 +64,12 @@ public class Consola {
         return fecha;
     }
 
-    public static Opcion elegirOpcion(){
-        Opcion opcion;
+    public static Evento elegirOpcion(){
+        Evento evento;
         do {
-            opcion = Opcion.get(leerEntero("Elige una opción: "));
-        } while (opcion == null);
-        return opcion;
+            evento = Evento.get(leerEntero("Elige una opción: "));
+        } while (evento == null);
+        return evento;
     }
 
     public static Cliente leerCliente() {
