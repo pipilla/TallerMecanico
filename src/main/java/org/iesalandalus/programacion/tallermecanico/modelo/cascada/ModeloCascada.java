@@ -1,9 +1,6 @@
 package org.iesalandalus.programacion.tallermecanico.modelo.cascada;
 
-import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Cliente;
-import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Revision;
-import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Trabajo;
-import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Vehiculo;
+import org.iesalandalus.programacion.tallermecanico.modelo.dominio.*;
 import org.iesalandalus.programacion.tallermecanico.modelo.negocio.FabricaFuenteDatos;
 import org.iesalandalus.programacion.tallermecanico.modelo.negocio.IClientes;
 import org.iesalandalus.programacion.tallermecanico.modelo.negocio.ITrabajos;
@@ -18,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ModeloCascada {
+public class ModeloCascada implements org.iesalandalus.programacion.tallermecanico.modelo.Modelo {
     private IClientes clientes;
     private ITrabajos trabajos;
     private IVehiculos vehiculos;
@@ -26,74 +23,100 @@ public class ModeloCascada {
     public ModeloCascada(FabricaFuenteDatos fabricaFuenteDatos) {
         comenzar();
     }
+    @Override
     public void comenzar() {
         clientes = new Clientes();
         trabajos = new Trabajos();
         vehiculos = new Vehiculos();
     }
 
+    @Override
     public void terminar() {
         System.out.printf("El modelo ha terminado.%n");
     }
 
+    @Override
     public void insertar(Cliente cliente) throws OperationNotSupportedException {
         clientes.insertar(new Cliente(cliente));
     }
 
+    @Override
     public void insertar(Vehiculo vehiculo) throws OperationNotSupportedException {
         vehiculos.insertar(vehiculo);
     }
 
+    @Override
     public void insertar(Trabajo trabajo) throws OperationNotSupportedException {
-        trabajos.insertar(new Revision(buscar(trabajo.getCliente()), buscar(trabajo.getVehiculo()), trabajo.getFechaInicio()) {
-        });
+        if (trabajo instanceof Revision revision) {
+            trabajos.insertar(new Revision(buscar(revision.getCliente()), buscar(revision.getVehiculo()), revision.getFechaInicio()));
+        } else if (trabajo instanceof Mecanico mecanico) {
+            trabajos.insertar(new Mecanico(buscar(mecanico.getCliente()), buscar(mecanico.getVehiculo()), mecanico.getFechaInicio()));
+        }
     }
 
+    @Override
     public Cliente buscar(Cliente cliente) {
         return new Cliente(clientes.buscar(cliente));
     }
 
+    @Override
     public Vehiculo buscar(Vehiculo vehiculo) {
         return vehiculos.buscar(vehiculo);
     }
 
-    public Revision buscar(Revision revision) {
-        return new Revision(trabajos.buscar(revision));
+    @Override
+    public Trabajo buscar(Trabajo trabajo) {
+        trabajo = trabajos.buscar(trabajo);
+        if (trabajo instanceof Revision revision) {
+            trabajo = new Revision(revision);
+        } else if (trabajo instanceof Mecanico mecanico) {
+            trabajo = new Mecanico(mecanico);
+        }
+
+        return trabajo;
     }
 
+    @Override
     public boolean modificar(Cliente cliente, String nombre, String telefono) throws OperationNotSupportedException {
         return clientes.modificar(cliente, nombre, telefono);
     }
 
-    public void anadirHoras(Revision revision, int horas) throws OperationNotSupportedException {
-        trabajos.anadirHoras(revision, horas);
+    @Override
+    public void anadirHoras(Trabajo trabajo, int horas) throws OperationNotSupportedException {
+        trabajos.anadirHoras(trabajo, horas);
     }
-    public void anadirPrecioMaterial(Revision revision, float precioMaterial) throws OperationNotSupportedException {
-        trabajos.anadirPrecioMaterial(revision, precioMaterial);
-    }
-
-    public void cerrar(Revision revision, LocalDate fechaFin) throws OperationNotSupportedException {
-        trabajos.cerrar(revision, fechaFin);
+    @Override
+    public void anadirPrecioMaterial(Trabajo trabajo, float precioMaterial) throws OperationNotSupportedException {
+        trabajos.anadirPrecioMaterial(trabajo, precioMaterial);
     }
 
+    @Override
+    public void cerrar(Trabajo trabajo, LocalDate fechaFin) throws OperationNotSupportedException {
+        trabajos.cerrar(trabajo, fechaFin);
+    }
+
+    @Override
     public void borrar(Cliente cliente) throws OperationNotSupportedException {
-        for (Revision revision : trabajos.get(cliente)) {
-            borrar(revision);
+        for (Trabajo trabajo : trabajos.get(cliente)) {
+            borrar(trabajo);
         }
         clientes.borrar(cliente);
     }
 
+    @Override
     public void borrar(Vehiculo vehiculo) throws OperationNotSupportedException {
-        for (Revision revision : trabajos.get(vehiculo)) {
-            borrar(revision);
+        for (Trabajo trabajo : trabajos.get(vehiculo)) {
+            borrar(trabajo);
         }
         vehiculos.borrar(vehiculo);
     }
 
-    public void borrar(Revision revision) throws OperationNotSupportedException {
-        trabajos.borrar(revision);
+    @Override
+    public void borrar(Trabajo trabajo) throws OperationNotSupportedException {
+        trabajos.borrar(trabajo);
     }
 
+    @Override
     public List<Cliente> getClientes() {
         List<Cliente> nuevosClientes = new ArrayList<>();
         for (Cliente cliente : clientes.get()) {
@@ -102,31 +125,47 @@ public class ModeloCascada {
         return nuevosClientes;
     }
 
+    @Override
     public List<Vehiculo> getVehiculos() {
         return new ArrayList<>(vehiculos.get());
     }
 
-    public List<Revision> getRevisiones() {
-        List<Revision> nuevasRevisiones = new ArrayList<>();
-        for (Revision revision : trabajos.get()) {
-            nuevasRevisiones.add(new Revision(revision));
+    @Override
+    public List<Trabajo> getTrabajos() {
+        List<Trabajo> nuevosTrabajos = new ArrayList<>();
+        for (Trabajo trabajo : trabajos.get()) {
+            if (trabajo instanceof Revision revision) {
+                nuevosTrabajos.add(new Revision(revision));
+            } else if (trabajo instanceof Mecanico mecanico) {
+                nuevosTrabajos.add(new Mecanico(mecanico));
+            }
         }
-        return nuevasRevisiones;
+        return nuevosTrabajos;
     }
 
-    public List<Revision> getRevisiones(Cliente cliente) {
-        List<Revision> nuevasRevisiones = new ArrayList<>();
-        for (Revision revision : trabajos.get(cliente)) {
-            nuevasRevisiones.add(new Revision(revision));
+    @Override
+    public List<Trabajo> getTrabajos(Cliente cliente) {
+        List<Trabajo> nuevosTrabajos = new ArrayList<>();
+        for (Trabajo trabajo : trabajos.get(cliente)) {
+            if (trabajo instanceof Revision revision) {
+                nuevosTrabajos.add(new Revision(revision));
+            } else if (trabajo instanceof Mecanico mecanico) {
+                nuevosTrabajos.add(new Mecanico(mecanico));
+            }
         }
-        return nuevasRevisiones;
+        return nuevosTrabajos;
     }
 
-    public List<Revision> getRevisiones(Vehiculo vehiculo) {
-        List<Revision> nuevasRevisiones = new ArrayList<>();
-        for (Revision revision : trabajos.get(vehiculo)) {
-            nuevasRevisiones.add(new Revision(revision));
+    @Override
+    public List<Trabajo> getTrabajos(Vehiculo vehiculo) {
+        List<Trabajo> nuevosTrabajos = new ArrayList<>();
+        for (Trabajo trabajo : trabajos.get(vehiculo)) {
+            if (trabajo instanceof Revision revision) {
+                nuevosTrabajos.add(new Revision(revision));
+            } else if (trabajo instanceof Mecanico mecanico) {
+                nuevosTrabajos.add(new Mecanico(mecanico));
+            }
         }
-        return nuevasRevisiones;
+        return nuevosTrabajos;
     }
 }

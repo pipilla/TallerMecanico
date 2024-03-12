@@ -94,14 +94,14 @@ public class Controlador {
     }
 
     public List<Revision> getRevisiones() {
-        return modeloCascada.getRevisiones();
+        return modeloCascada.getTrabajos();
     }
 
     public List<Revision> getRevisiones(Cliente cliente) {
-        return modeloCascada.getRevisiones(cliente);
+        return modeloCascada.getTrabajos(cliente);
     }
 
     public List<Revision> getRevisiones(Vehiculo vehiculo) {
-        return modeloCascada.getRevisiones(vehiculo);
+        return modeloCascada.getTrabajos(vehiculo);
     }
 }
