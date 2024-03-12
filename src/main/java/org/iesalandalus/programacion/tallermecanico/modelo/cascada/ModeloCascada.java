@@ -1,8 +1,12 @@
-package org.iesalandalus.programacion.tallermecanico.modelo;
+package org.iesalandalus.programacion.tallermecanico.modelo.cascada;
 
 import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Cliente;
 import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Revision;
+import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Trabajo;
 import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Vehiculo;
+import org.iesalandalus.programacion.tallermecanico.modelo.negocio.FabricaFuenteDatos;
+import org.iesalandalus.programacion.tallermecanico.modelo.negocio.IClientes;
+import org.iesalandalus.programacion.tallermecanico.modelo.negocio.ITrabajos;
 import org.iesalandalus.programacion.tallermecanico.modelo.negocio.memoria.Clientes;
 import org.iesalandalus.programacion.tallermecanico.modelo.negocio.IVehiculos;
 import org.iesalandalus.programacion.tallermecanico.modelo.negocio.memoria.Trabajos;
@@ -14,22 +18,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Modelo {
-    private Clientes clientes;
-    private Trabajos trabajos;
-    private IVehiculos IVehiculos;
+public class ModeloCascada {
+    private IClientes clientes;
+    private ITrabajos trabajos;
+    private IVehiculos vehiculos;
 
-    public Modelo() {
+    public ModeloCascada(FabricaFuenteDatos fabricaFuenteDatos) {
         comenzar();
     }
     public void comenzar() {
         clientes = new Clientes();
         trabajos = new Trabajos();
-        IVehiculos = new Vehiculos();
+        vehiculos = new Vehiculos();
     }
 
     public void terminar() {
-        System.out.printf("El modelo ha terminado. %n");
+        System.out.printf("El modelo ha terminado.%n");
     }
 
     public void insertar(Cliente cliente) throws OperationNotSupportedException {
@@ -37,11 +41,12 @@ public class Modelo {
     }
 
     public void insertar(Vehiculo vehiculo) throws OperationNotSupportedException {
-        IVehiculos.insertar(vehiculo);
+        vehiculos.insertar(vehiculo);
     }
 
-    public void insertar(Revision revision) throws OperationNotSupportedException {
-        trabajos.insertar(new Revision(buscar(revision.getCliente()), buscar(revision.getVehiculo()), revision.getFechaInicio()));
+    public void insertar(Trabajo trabajo) throws OperationNotSupportedException {
+        trabajos.insertar(new Revision(buscar(trabajo.getCliente()), buscar(trabajo.getVehiculo()), trabajo.getFechaInicio()) {
+        });
     }
 
     public Cliente buscar(Cliente cliente) {
@@ -49,7 +54,7 @@ public class Modelo {
     }
 
     public Vehiculo buscar(Vehiculo vehiculo) {
-        return IVehiculos.buscar(vehiculo);
+        return vehiculos.buscar(vehiculo);
     }
 
     public Revision buscar(Revision revision) {
@@ -82,7 +87,7 @@ public class Modelo {
         for (Revision revision : trabajos.get(vehiculo)) {
             borrar(revision);
         }
-        IVehiculos.borrar(vehiculo);
+        vehiculos.borrar(vehiculo);
     }
 
     public void borrar(Revision revision) throws OperationNotSupportedException {
@@ -98,7 +103,7 @@ public class Modelo {
     }
 
     public List<Vehiculo> getVehiculos() {
-        return new ArrayList<>(IVehiculos.get());
+        return new ArrayList<>(vehiculos.get());
     }
 
     public List<Revision> getRevisiones() {

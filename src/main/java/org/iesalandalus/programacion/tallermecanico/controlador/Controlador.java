@@ -1,6 +1,6 @@
 package org.iesalandalus.programacion.tallermecanico.controlador;
 
-import org.iesalandalus.programacion.tallermecanico.modelo.Modelo;
+import org.iesalandalus.programacion.tallermecanico.modelo.cascada.ModeloCascada;
 import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Cliente;
 import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Revision;
 import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Vehiculo;
@@ -13,95 +13,95 @@ import java.util.Objects;
 
 public class Controlador {
     private final Vista vista;
-    private final Modelo modelo;
+    private final ModeloCascada modeloCascada;
 
-    public Controlador(Modelo modelo, Vista vista){
-        Objects.requireNonNull(modelo, "El modelo no puede ser nulo.");
+    public Controlador(ModeloCascada modeloCascada, Vista vista){
+        Objects.requireNonNull(modeloCascada, "El modelo no puede ser nulo.");
         Objects.requireNonNull(vista, "La vista no puede ser nula.");
-        this.modelo = modelo;
+        this.modeloCascada = modeloCascada;
         this.vista = vista;
         vista.setControlador(this);
     }
 
     public void comenzar() {
-        modelo.comenzar();
+        modeloCascada.comenzar();
         vista.comenzar();
     }
 
     public void terminar() {
-        modelo.terminar();
+        modeloCascada.terminar();
         vista.terminar();
     }
 
     public void insertar(Cliente cliente) throws OperationNotSupportedException {
-        modelo.insertar(cliente);
+        modeloCascada.insertar(cliente);
     }
 
     public void insertar(Vehiculo vehiculo) throws OperationNotSupportedException {
-        modelo.insertar(vehiculo);
+        modeloCascada.insertar(vehiculo);
     }
 
     public void insertar(Revision revision) throws OperationNotSupportedException {
-        modelo.insertar(revision);
+        modeloCascada.insertar(revision);
     }
 
     public Cliente buscar(Cliente cliente) {
-        return modelo.buscar(cliente);
+        return modeloCascada.buscar(cliente);
     }
 
     public Vehiculo buscar(Vehiculo vehiculo) {
-        return modelo.buscar(vehiculo);
+        return modeloCascada.buscar(vehiculo);
     }
 
     public Revision buscar(Revision revision) {
-        return modelo.buscar(revision);
+        return modeloCascada.buscar(revision);
     }
 
     public boolean modificar(Cliente cliente, String nombre, String telefono) throws OperationNotSupportedException {
-        return modelo.modificar(cliente, nombre, telefono);
+        return modeloCascada.modificar(cliente, nombre, telefono);
     }
 
     public void anadirHoras(Revision revision, int horas) throws OperationNotSupportedException {
-        modelo.anadirHoras(revision, horas);
+        modeloCascada.anadirHoras(revision, horas);
     }
 
     public void anadirPrecioMaterial(Revision revision, float precioMaterial) throws OperationNotSupportedException {
-        modelo.anadirPrecioMaterial(revision, precioMaterial);
+        modeloCascada.anadirPrecioMaterial(revision, precioMaterial);
     }
 
     public void cerrar(Revision revision, LocalDate fechaFin) throws OperationNotSupportedException {
-        modelo.cerrar(revision, fechaFin);
+        modeloCascada.cerrar(revision, fechaFin);
     }
 
     public void borrar(Cliente cliente) throws OperationNotSupportedException {
-        modelo.borrar(cliente);
+        modeloCascada.borrar(cliente);
     }
 
     public void borrar(Vehiculo vehiculo) throws OperationNotSupportedException {
-        modelo.borrar(vehiculo);
+        modeloCascada.borrar(vehiculo);
     }
 
     public void borrar(Revision revision) throws OperationNotSupportedException {
-        modelo.borrar(revision);
+        modeloCascada.borrar(revision);
     }
 
     public List<Cliente> getClientes() {
-        return modelo.getClientes();
+        return modeloCascada.getClientes();
     }
 
     public List<Vehiculo> getVehiculos() {
-        return modelo.getVehiculos();
+        return modeloCascada.getVehiculos();
     }
 
     public List<Revision> getRevisiones() {
-        return modelo.getRevisiones();
+        return modeloCascada.getRevisiones();
     }
 
     public List<Revision> getRevisiones(Cliente cliente) {
-        return modelo.getRevisiones(cliente);
+        return modeloCascada.getRevisiones(cliente);
     }
 
     public List<Revision> getRevisiones(Vehiculo vehiculo) {
-        return modelo.getRevisiones(vehiculo);
+        return modeloCascada.getRevisiones(vehiculo);
     }
 }
