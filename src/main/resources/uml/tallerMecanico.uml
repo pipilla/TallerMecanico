@@ -2390,7 +2390,7 @@
                     </ownedLiteral>
                   </packagedElement>
                   <packagedElement xmi:type="uml:Class" xmi:id="_Mxq0oM79Ee6dsIuvGKkUNw" name="GestorEventos" visibility="public">
-                    <ownedAttribute xmi:type="uml:Property" xmi:id="_MxsCwM79Ee6dsIuvGKkUNw" name="receptores" visibility="private" type="_L0OM8cWREe6GV74yg1DxAg" isUnique="false">
+                    <ownedAttribute xmi:type="uml:Property" xmi:id="_MxsCwM79Ee6dsIuvGKkUNw" name="receptores" visibility="package" type="_L0OM8cWREe6GV74yg1DxAg" isUnique="false">
                       <defaultValue xmi:type="uml:OpaqueExpression" xmi:id="_Mxsp0M79Ee6dsIuvGKkUNw" name="defaultValue">
                         <language>JAVA</language>
                         <body>new EnumMap&lt;>(Evento.class)</body>
@@ -2490,7 +2490,7 @@
           <packagedElement xmi:type="uml:Class" xmi:id="_rnKo4MWLEe6GV74yg1DxAg" name="LocalDate"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Package" xmi:id="_L0OM8MWREe6GV74yg1DxAg" name="util">
-          <packagedElement xmi:type="uml:Class" xmi:id="_L0OM8cWREe6GV74yg1DxAg" name="Map&lt;ReceptorEventos, List&lt;Evento>>"/>
+          <packagedElement xmi:type="uml:Class" xmi:id="_L0OM8cWREe6GV74yg1DxAg" name="Map&lt;Evento, List&lt;ReceptorEventos>>"/>
         </packagedElement>
       </packagedElement>
     </packagedElement>
