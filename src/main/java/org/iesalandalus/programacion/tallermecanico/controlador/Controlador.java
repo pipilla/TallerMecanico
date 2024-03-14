@@ -4,7 +4,7 @@ import org.iesalandalus.programacion.tallermecanico.modelo.cascada.ModeloCascada
 import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Cliente;
 import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Revision;
 import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Vehiculo;
-import org.iesalandalus.programacion.tallermecanico.vista.Vista;
+import org.iesalandalus.programacion.tallermecanico.vista.texto.VistaTexto;
 
 import javax.naming.OperationNotSupportedException;
 import java.time.LocalDate;
@@ -12,25 +12,25 @@ import java.util.List;
 import java.util.Objects;
 
 public class Controlador {
-    private final Vista vista;
+    private final VistaTexto vistaTexto;
     private final ModeloCascada modeloCascada;
 
-    public Controlador(ModeloCascada modeloCascada, Vista vista){
+    public Controlador(ModeloCascada modeloCascada, VistaTexto vistaTexto){
         Objects.requireNonNull(modeloCascada, "El modelo no puede ser nulo.");
-        Objects.requireNonNull(vista, "La vista no puede ser nula.");
+        Objects.requireNonNull(vistaTexto, "La vista no puede ser nula.");
         this.modeloCascada = modeloCascada;
-        this.vista = vista;
-        vista.setControlador(this);
+        this.vistaTexto = vistaTexto;
+        vistaTexto.setControlador(this);
     }
 
     public void comenzar() {
         modeloCascada.comenzar();
-        vista.comenzar();
+        vistaTexto.comenzar();
     }
 
     public void terminar() {
         modeloCascada.terminar();
-        vista.terminar();
+        vistaTexto.terminar();
     }
 
     public void insertar(Cliente cliente) throws OperationNotSupportedException {

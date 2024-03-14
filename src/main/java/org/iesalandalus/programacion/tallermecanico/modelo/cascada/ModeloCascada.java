@@ -1,11 +1,9 @@
 package org.iesalandalus.programacion.tallermecanico.modelo.cascada;
 
+import org.iesalandalus.programacion.tallermecanico.modelo.FabricaModelo;
 import org.iesalandalus.programacion.tallermecanico.modelo.dominio.*;
-import org.iesalandalus.programacion.tallermecanico.modelo.negocio.FabricaFuenteDatos;
-import org.iesalandalus.programacion.tallermecanico.modelo.negocio.IClientes;
-import org.iesalandalus.programacion.tallermecanico.modelo.negocio.ITrabajos;
+import org.iesalandalus.programacion.tallermecanico.modelo.negocio.*;
 import org.iesalandalus.programacion.tallermecanico.modelo.negocio.memoria.Clientes;
-import org.iesalandalus.programacion.tallermecanico.modelo.negocio.IVehiculos;
 import org.iesalandalus.programacion.tallermecanico.modelo.negocio.memoria.Trabajos;
 import org.iesalandalus.programacion.tallermecanico.modelo.negocio.memoria.Vehiculos;
 
@@ -21,13 +19,14 @@ public class ModeloCascada implements org.iesalandalus.programacion.tallermecani
     private IVehiculos vehiculos;
 
     public ModeloCascada(FabricaFuenteDatos fabricaFuenteDatos) {
-        comenzar();
+        IFuenteDatos fuenteDatos = fabricaFuenteDatos.crear();
+        clientes = fuenteDatos.crearClientes();
+        trabajos = fuenteDatos.crearTrabajos();
+        vehiculos = fuenteDatos.crearVehiculos();
     }
     @Override
     public void comenzar() {
-        clientes = new Clientes();
-        trabajos = new Trabajos();
-        vehiculos = new Vehiculos();
+        System.out.printf("El modelo ha comenzado.%n");
     }
 
     @Override
@@ -72,7 +71,6 @@ public class ModeloCascada implements org.iesalandalus.programacion.tallermecani
         } else if (trabajo instanceof Mecanico mecanico) {
             trabajo = new Mecanico(mecanico);
         }
-
         return trabajo;
     }
 
