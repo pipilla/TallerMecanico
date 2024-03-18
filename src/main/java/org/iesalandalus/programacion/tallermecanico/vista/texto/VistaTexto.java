@@ -10,8 +10,6 @@ import javax.naming.OperationNotSupportedException;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import static jdk.internal.org.jline.reader.impl.LineReaderImpl.CompletionType.List;
-
 public class VistaTexto implements org.iesalandalus.programacion.tallermecanico.vista.Vista {
     public static final String DNI_EJEMPLO = "11111111H";
     public static final String MATRICULA_DEFECTO = "1111JKK";
@@ -43,6 +41,183 @@ public class VistaTexto implements org.iesalandalus.programacion.tallermecanico.
         getGestorEventos().notificar(opcion);
     }
 
+    public static Cliente leerCliente() {
+        Cliente cliente = null;
+        boolean clienteCorrecto = false;
+        do {
+            try {
+                cliente = new Cliente(Consola.leerCadena("Dime el nombre del cliente: "), Consola.leerCadena("Dime el dni del cliente: "), Consola.leerCadena("Dime el teléfono del cliente: "));
+                clienteCorrecto = true;
+            } catch (IllegalArgumentException | NullPointerException e) {
+                System.out.println(e.getMessage());
+            }
+        } while (!clienteCorrecto);
+        return cliente;
+    }
+
+    public static Cliente leerClienteDni() {
+        Cliente cliente = null;
+        boolean clienteCorrecto = false;
+        do {
+            try {
+                cliente = new Cliente(Cliente.get(Consola.leerCadena("Dime el DNI del cliente: ")));
+                clienteCorrecto = true;
+            } catch (IllegalArgumentException| NullPointerException e) {
+                System.out.println(e.getMessage());
+            }
+        } while (!clienteCorrecto);
+        return cliente;
+    }
+
+    public static String leerNuevoNombre() {
+        String nombre;
+        boolean nombreCorrecto = false;
+        do {
+            nombre = Consola.leerCadena("Dime el nuevo nombre del cliente: ");
+            if (!nombre.isBlank()) {
+                try {
+                    new Cliente(nombre, DNI_EJEMPLO, "600600600");
+                    nombreCorrecto = true;
+                } catch (IllegalArgumentException| NullPointerException e) {
+                    System.out.println(e.getMessage());
+                }
+            } else {
+                nombreCorrecto = true;
+            }
+        } while (!nombreCorrecto);
+        return nombre;
+    }
+
+    public static String leerNuevoTelefono() {
+        String telefono;
+        boolean telefonoCorrecto = false;
+        do {
+            telefono = Consola.leerCadena("Dime el nuevo telefono del cliente: ");
+            if (!telefono.isBlank()) {
+                try {
+                    new Cliente("Juan", DNI_EJEMPLO, telefono);
+                    telefonoCorrecto = true;
+                } catch (IllegalArgumentException| NullPointerException e) {
+                    System.out.println(e.getMessage());
+                }
+            } else {
+                telefonoCorrecto = true;
+            }
+
+        } while (!telefonoCorrecto);
+        return telefono;
+    }
+
+    public static Vehiculo leerVehiculo() {
+        Vehiculo vehiculo = null;
+        boolean vehiculoCorrecto = false;
+
+        do {
+            try {
+                vehiculo = new Vehiculo(Consola.leerCadena("Dime la marca del vehículo: "), Consola.leerCadena("Dime el modelo del vehículo: "), Consola.leerCadena("Dime la matrícula del vehículo: "));
+                vehiculoCorrecto = true;
+            } catch (IllegalArgumentException | NullPointerException e) {
+                System.out.println(e.getMessage());
+            }
+        } while (!vehiculoCorrecto);
+        return vehiculo;
+    }
+
+    public static Vehiculo leerVehiculoMatricula() {
+        Vehiculo vehiculo = null;
+        boolean vehiculoCorrecto = false;
+        do {
+            try {
+                vehiculo = Vehiculo.get(Consola.leerCadena("Dime la matrícula del vehículo: "));
+                vehiculoCorrecto = true;
+            } catch (IllegalArgumentException| NullPointerException e) {
+                System.out.println(e.getMessage());
+            }
+        } while (!vehiculoCorrecto);
+        return vehiculo;
+    }
+
+    public static Trabajo leerRevision() {
+        Revision revision = null;
+        boolean trabajoCorrecto = false;
+
+        do {
+            try {
+                revision = new Revision(leerClienteDni(), leerVehiculoMatricula(), Consola.leerFecha("Dime la fecha de inicio del trabajo: "));
+                trabajoCorrecto = true;
+            } catch (IllegalArgumentException | NullPointerException e) {
+                System.out.println(e.getMessage());
+            }
+        } while (!trabajoCorrecto);
+        return revision;
+    }
+
+    public static Trabajo leerMecanico() {
+        Trabajo mecanico = null;
+        boolean trabajoCorrecto = false;
+
+        do {
+            try {
+                mecanico = new Mecanico(leerClienteDni(), leerVehiculoMatricula(), Consola.leerFecha("Dime la fecha de inicio del trabajo: "));
+                trabajoCorrecto = true;
+            } catch (IllegalArgumentException | NullPointerException e) {
+                System.out.println(e.getMessage());
+            }
+        } while (!trabajoCorrecto);
+        return mecanico;
+    }
+
+    public static Trabajo leerTrabajoVehiculo() {
+        return Trabajo.get(leerVehiculo());
+    }
+
+    public static int leerHoras() {
+        int horas;
+        boolean horasCorrectas = false;
+        do {
+            horas = Consola.leerEntero("Dime las horas que quieres añadir: ");
+            try {
+                Revision revision = new Revision(Cliente.get(DNI_EJEMPLO), Vehiculo.get(MATRICULA_DEFECTO), LocalDate.now());
+                revision.anadirHoras(horas);
+                horasCorrectas = true;
+            } catch (IllegalArgumentException | NullPointerException | OperationNotSupportedException e) {
+                System.out.println(e.getMessage());
+            }
+        } while (!horasCorrectas);
+        return horas;
+    }
+
+    public static float leerPrecioMaterial() {
+        float precioMaterial;
+        boolean precioCorrecto = false;
+        do {
+            precioMaterial = Consola.leerReal("Dime el precio que quieres añadir: ");
+            try {
+                Mecanico mecanico = new Mecanico(Cliente.get(DNI_EJEMPLO), Vehiculo.get(MATRICULA_DEFECTO), LocalDate.now());
+                mecanico.anadirPrecioMaterial(precioMaterial);
+                precioCorrecto = true;
+            } catch (IllegalArgumentException | NullPointerException | OperationNotSupportedException e) {
+                System.out.println(e.getMessage());
+            }
+        } while (!precioCorrecto);
+        return precioMaterial;
+    }
+
+    public static LocalDate leerFechaCierre() {
+        LocalDate fechaCierre;
+        boolean fechaCierreCorrecta = false;
+        do {
+            fechaCierre = Consola.leerFecha("Dime la fecha de cierre: ");
+            try {
+                Revision revision = new Revision(Cliente.get(DNI_EJEMPLO), Vehiculo.get(MATRICULA_DEFECTO), LocalDate.of(1900, 1, 1));
+                revision.cerrar(fechaCierre);
+                fechaCierreCorrecta = true;
+            } catch (IllegalArgumentException | NullPointerException | OperationNotSupportedException e) {
+                System.out.println(e.getMessage());
+            }
+        } while (!fechaCierreCorrecta);
+        return fechaCierre;
+    }
 
     @Override
     public void notificarResultado(Evento evento, String texto, boolean exito){
