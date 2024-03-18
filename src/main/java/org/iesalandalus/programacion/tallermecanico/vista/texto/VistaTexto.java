@@ -28,9 +28,10 @@ public class VistaTexto implements org.iesalandalus.programacion.tallermecanico.
         do {
             Consola.mostrarMenu();
             evento = Consola.elegirOpcion();
-            System.out.printf(evento.name());
+            Consola.mostrarCabecera(evento.name());
             ejecutar(evento);
         } while (evento != Evento.SALIR);
+        terminar();
     }
 
     @Override
@@ -45,7 +46,11 @@ public class VistaTexto implements org.iesalandalus.programacion.tallermecanico.
 
     @Override
     public void notificarResultado(Evento evento, String texto, boolean exito){
-        //cambiar
+        if (exito) {
+            System.out.printf("%s: %s%n", evento, texto);
+        } else {
+            System.out.printf("ERROR: %s%n", texto);
+        }
     }
 
     @Override
@@ -74,25 +79,25 @@ public class VistaTexto implements org.iesalandalus.programacion.tallermecanico.
 
     @Override
     public void mostrarVehiculos(Vehiculos vehiculos) {
-        Objects.requireNonNull(vehiculos, "Los clientes no pueden ser nulos.");
+        Objects.requireNonNull(vehiculos, "Los vehículos no pueden ser nulos.");
         System.out.printf("%s%n", vehiculos);
     }
 
     @Override
     public void mostrarTrabajos(Trabajos trabajos) {
-        Objects.requireNonNull(trabajos, "Los clientes no pueden ser nulos.");
+        Objects.requireNonNull(trabajos, "Los trabajos no pueden ser nulos.");
         System.out.printf("%s%n", trabajos);
     }
 
     @Override
     public void mostrarTrabajosCliente(Trabajos trabajosCliente) {
-        Objects.requireNonNull(trabajosCliente, "Los clientes no pueden ser nulos.");
+        Objects.requireNonNull(trabajosCliente, "Los trabajos para el cliente no pueden ser nulos.");
         System.out.printf("%s%n", trabajosCliente);
     }
 
     @Override
     public void mostrarTrabajosVehiculo(Trabajos trabajosVehiculo) {
-        Objects.requireNonNull(trabajosVehiculo, "Los clientes no pueden ser nulos.");
+        Objects.requireNonNull(trabajosVehiculo, "Los trabajos para el vehiculo no pueden ser nulos.");
         System.out.printf("%s%n", trabajosVehiculo);
     }
 
