@@ -1,16 +1,9 @@
 package org.iesalandalus.programacion.tallermecanico.controlador;
 
 import org.iesalandalus.programacion.tallermecanico.modelo.Modelo;
-import org.iesalandalus.programacion.tallermecanico.modelo.cascada.ModeloCascada;
-import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Cliente;
-import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Revision;
-import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Vehiculo;
 import org.iesalandalus.programacion.tallermecanico.vista.Vista;
 import org.iesalandalus.programacion.tallermecanico.vista.eventos.Evento;
 
-import javax.naming.OperationNotSupportedException;
-import java.time.LocalDate;
-import java.util.List;
 import java.util.Objects;
 
 public class Controlador implements IControlador {
@@ -35,10 +28,18 @@ public class Controlador implements IControlador {
     @Override
     public void actualizar(Evento evento) {
         Objects.requireNonNull(evento, "El evento no puede ser nulo.");
-        switch(evento) {
-            case INSERTAR_CLIENTE -> {
-                modelo.insertar(vista.);
+        String resultado = "";
+        try {
+            switch (evento) {
+                case INSERTAR_CLIENTE -> {
+                    modelo.insertar(vista.leerCliente());
+                    resultado = "Se ha insertado el cliente correctamente.";
+                }
             }
+
+        } catch (Exception e) {
+
         }
+
     }
 }

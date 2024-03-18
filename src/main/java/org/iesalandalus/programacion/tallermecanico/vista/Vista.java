@@ -8,12 +8,38 @@ import org.iesalandalus.programacion.tallermecanico.modelo.negocio.memoria.Vehic
 import org.iesalandalus.programacion.tallermecanico.vista.eventos.Evento;
 import org.iesalandalus.programacion.tallermecanico.vista.eventos.GestorEventos;
 
+import java.time.LocalDate;
+
 public interface Vista {
     GestorEventos getGestorEventos();
 
     void comenzar();
 
     void terminar();
+
+    Cliente leerCliente();
+
+    Cliente leerClienteDni();
+
+    String leerNuevoNombre();
+
+    String leerNuevoTelefono();
+
+    Vehiculo leerVehiculo();
+
+    Vehiculo leerVehiculoMatricula();
+
+    Trabajo leerRevision();
+
+    Trabajo leerMecanico();
+
+    Trabajo leerTrabajoVehiculo();
+
+    int leerHoras();
+
+    float leerPrecioMaterial();
+
+    LocalDate leerFechaCierre();
 
     void notificarResultado(Evento evento, String texto, boolean exito);
 
