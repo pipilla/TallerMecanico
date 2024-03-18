@@ -40,6 +40,10 @@ public enum Evento {
         this.texto = texto;
     }
 
+    public int getCodigo() {
+        return codigo;
+    }
+
     public static boolean esValido(int codigo) {
         return opciones.containsKey(codigo);
     }

@@ -3,15 +3,19 @@ package org.iesalandalus.programacion.tallermecanico.vista.eventos;
 import java.util.*;
 
 public class GestorEventos {
-    private Map<ReceptorEventos, List<Evento>> receptores;
-    public GestorEventos(List<Evento> eventos) {
+    private Map<Evento, List<ReceptorEventos>> receptores = new EnumMap<>(Evento.class);
+    public GestorEventos(Evento... eventos) {
         Objects.requireNonNull(eventos, "Los eventos no pueden ser nulos.");
-        receptores = new HashMap<>();
+        for (Evento evento : eventos) {
+            receptores.put(evento, new ArrayList<>());
+        }
     }
-    void suscribir(ReceptorEventos receptor, List<Evento> eventos) {
+    public void suscribir(ReceptorEventos receptor, Evento... eventos) {
         Objects.requireNonNull(receptor, "El receptor no puede ser nulo.");
         Objects.requireNonNull(eventos, "Los eventos no puede ser nulo.");
-        receptores.put(receptor, eventos);
+        for (Evento evento : eventos) {
+
+        }
     }
 
     public void desuscribir(ReceptorEventos receptor, List<Evento> eventos) {

@@ -10,10 +10,12 @@ import javax.naming.OperationNotSupportedException;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import static jdk.internal.org.jline.reader.impl.LineReaderImpl.CompletionType.List;
+
 public class VistaTexto implements org.iesalandalus.programacion.tallermecanico.vista.Vista {
     public static final String DNI_EJEMPLO = "11111111H";
     public static final String MATRICULA_DEFECTO = "1111JKK";
-    private GestorEventos gestorEventos;
+    private GestorEventos gestorEventos = new GestorEventos(List<Evento> Evento.values());
 
     @Override
     public GestorEventos getGestorEventos() {
