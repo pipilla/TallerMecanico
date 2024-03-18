@@ -15,7 +15,7 @@ import static jdk.internal.org.jline.reader.impl.LineReaderImpl.CompletionType.L
 public class VistaTexto implements org.iesalandalus.programacion.tallermecanico.vista.Vista {
     public static final String DNI_EJEMPLO = "11111111H";
     public static final String MATRICULA_DEFECTO = "1111JKK";
-    private GestorEventos gestorEventos = new GestorEventos(List<Evento> Evento.values());
+    private GestorEventos gestorEventos = new GestorEventos(Evento.values());
 
     @Override
     public GestorEventos getGestorEventos() {
@@ -28,7 +28,7 @@ public class VistaTexto implements org.iesalandalus.programacion.tallermecanico.
         do {
             Consola.mostrarMenu();
             evento = Consola.elegirOpcion();
-            System.out.println();
+            System.out.printf(evento.name());
             ejecutar(evento);
         } while (evento != Evento.SALIR);
     }
@@ -38,35 +38,14 @@ public class VistaTexto implements org.iesalandalus.programacion.tallermecanico.
         System.out.printf("¡HASTA PRONTO!%n");
     }
 
-    @Override
-    public void ejecutar(Evento opcion) {
-        switch (opcion) {
-            case INSERTAR_CLIENTE -> mostrarCliente();
-            case BUSCAR_CLIENTE -> buscarCliente();
-            case BORRAR_CLIENTE -> borrarCliente();
-            case LISTAR_CLIENTES -> listarClientes();
-            case MODIFICAR_CLIENTE -> modificarCliente();
-            case INSERTAR_VEHICULO -> mostrarVehiculo();
-            case BUSCAR_VEHICULO -> buscarVehiculo();
-            case BORRAR_VEHICULO -> borrarVehiculo();
-            case LISTAR_VEHICULOS -> listarVehiculos();
-            case INSERTAR_REVISION -> mostrarTrabajo();
-            case BUSCAR_REVISION -> buscarRevision();
-            case BORRAR_REVISION -> borrarRevision();
-            case LISTAR_REVISIONES -> listarRevisiones();
-            case LISTAR_REVISIONES_CLIENTE -> listarRevisionesCliente();
-            case LISTAR_REVISIONES_VEHICULO -> listarRevisionesVehiculo();
-            case ANADIR_HORAS_REVISION -> anadirHoras();
-            case ANADIR_PRECIO_MATERIAL_REVISION -> anadirPrecioMaterial();
-            case CERRAR_REVISION -> cerrarRevision();
-            case SALIR -> salir();
-        }
+    private void ejecutar(Evento opcion) {
+        getGestorEventos().notificar(opcion);
     }
 
 
     @Override
     public void notificarResultado(Evento evento, String texto, boolean exito){
-        gestorEventos.notificar(evento);
+        //cambiar
     }
 
     @Override

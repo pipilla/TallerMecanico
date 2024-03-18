@@ -15,8 +15,6 @@ public interface Vista {
 
     void terminar();
 
-    void ejecutar(Evento opcion);
-
     void notificarResultado(Evento evento, String texto, boolean exito);
 
     void mostrarCliente(Cliente cliente);
