@@ -29,6 +29,7 @@ public class Controlador implements IControlador {
     public void actualizar(Evento evento) {
         Objects.requireNonNull(evento, "El evento no puede ser nulo.");
         String resultado = "";
+        boolean exito;
         try {
             switch (evento) {
                 case INSERTAR_CLIENTE -> {
@@ -36,48 +37,78 @@ public class Controlador implements IControlador {
                     resultado = "Se ha insertado el cliente correctamente.";
                 }
                 case BUSCAR_CLIENTE -> {
-                    modelo.buscar(vista.leerCliente());
+                    vista.mostrarCliente(modelo.buscar(vista.leerCliente()));
                     resultado = "Se ha encontrado el cliente.";
                 }
                 case BORRAR_CLIENTE -> {
+                    modelo.borrar(vista.leerCliente());
+                    resultado = "Se ha borrado el cliente.";
                 }
-                case LISTAR_CLIENTES -> {
-                }
+                case LISTAR_CLIENTES -> vista.mostrarClientes(modelo.getClientes());
+
                 case MODIFICAR_CLIENTE -> {
+                    boolean modificado = modelo.modificar(vista.leerCliente(), vista.leerNuevoNombre(), vista.leerNuevoTelefono());
+                    if (modificado) {
+                        resultado = "Se ha modificado el cliente.";
+                    } else {
+                        resultado = "El cliente no se ha modificado.";
+                    }
                 }
                 case INSERTAR_VEHICULO -> {
+                    modelo.insertar(vista.leerVehiculo());
+                    resultado = "Se ha insertado el vehículo correctamente.";
                 }
                 case BUSCAR_VEHICULO -> {
+                    vista.mostrarVehiculo(modelo.buscar(vista.leerVehiculo()));
+                    resultado = "Se ha encontrado el vehículo.";
                 }
                 case BORRAR_VEHICULO -> {
+                    modelo.borrar(vista.leerVehiculo());
+                    resultado = "Se ha borrado el vehiculo.";
                 }
-                case LISTAR_VEHICULOS -> {
-                }
+                case LISTAR_VEHICULOS -> vista.mostrarVehiculos(modelo.getVehiculos());
+
                 case INSERTAR_REVISION -> {
+                    modelo.insertar(vista.leerRevision());
+                    resultado = "Se ha insertado la revisión correctamente.";
                 }
-                case BUSCAR_REVISION -> {
+                case INSERTAR_MECANICO -> {
+                    modelo.insertar(vista.leerMecanico());
+                    resultado = "Se ha insertado el trabajo mecánico correctamente.";
                 }
-                case BORRAR_REVISION -> {
+                case BUSCAR_TRABAJO -> {
+                    modelo.buscar(vista.leerMecanico());
+                    resultado = "Se ha encontrado el trabajo mecanico.";
                 }
-                case LISTAR_REVISIONES -> {
+                case BORRAR_TRABAJO -> {
+                    modelo.borrar(modelo.buscar(vista.leerTrabajoVehiculo()));
+                    resultado = "Se ha borrado el trabajo.";
                 }
-                case LISTAR_REVISIONES_CLIENTE -> {
+                case LISTAR_TRABAJOS -> vista.mostrarTrabajos(modelo.getTrabajos());
+
+                case LISTAR_TRABAJOS_CLIENTE -> vista.mostrarTrabajos(modelo.getTrabajos(vista.leerCliente()));
+
+                case LISTAR_TRABAJOS_VEHICULO -> vista.mostrarTrabajos(modelo.getTrabajos(vista.leerVehiculo()));
+
+                case ANADIR_HORAS_TRABAJO -> {
+                    modelo.anadirHoras(modelo.buscar(vista.leerTrabajoVehiculo()), vista.leerHoras());
+                    resultado = "Se han añadido las horas al trabajo.";
                 }
-                case LISTAR_REVISIONES_VEHICULO -> {
+                case ANADIR_PRECIO_MATERIAL_TRABAJO -> {
+                    modelo.anadirPrecioMaterial(modelo.buscar(vista.leerMecanico()), vista.leerPrecioMaterial());
+                    resultado = "Se ha añadido el precio material al trabajo.";
                 }
-                case ANADIR_HORAS_REVISION -> {
+                case CERRAR_TRABAJO -> {
+                    modelo.cerrar(modelo.buscar(vista.leerTrabajoVehiculo()), vista.leerFechaCierre());
+                    resultado = "Se ha cerrado el trabajo correctamente.";
                 }
-                case ANADIR_PRECIO_MATERIAL_REVISION -> {
-                }
-                case CERRAR_REVISION -> {
-                }
-                case SALIR -> {
-                }
+                case SALIR -> vista.terminar();
             }
-            vista.notificarResultado(evento,resultado,true);
+            exito = true;
         } catch (Exception e) {
             resultado = e.getMessage();
-            vista.notificarResultado(evento,resultado,false);
+            exito = false;
         }
+        vista.notificarResultado(evento,resultado,exito);
     }
 }

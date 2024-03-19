@@ -9,6 +9,7 @@ import org.iesalandalus.programacion.tallermecanico.vista.eventos.Evento;
 import org.iesalandalus.programacion.tallermecanico.vista.eventos.GestorEventos;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public interface Vista {
     GestorEventos getGestorEventos();
@@ -49,13 +50,9 @@ public interface Vista {
 
     void mostrarTrabajo(Trabajo trabajo);
 
-    void mostrarClientes(Cliente clientes);
+    void mostrarClientes(List<Cliente> clientes);
 
-    void mostrarVehiculos(Vehiculos vehiculos);
+    void mostrarVehiculos(List<Vehiculo> vehiculos);
 
-    void mostrarTrabajos(Trabajos trabajos);
-
-    void mostrarTrabajosCliente(Trabajos trabajosCliente);
-
-    void mostrarTrabajosVehiculo(Trabajos trabajosVehiculo);
+    void mostrarTrabajos(List<Trabajo> trabajos);
 }

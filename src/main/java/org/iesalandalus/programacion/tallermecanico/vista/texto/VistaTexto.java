@@ -8,6 +8,7 @@ import org.iesalandalus.programacion.tallermecanico.vista.eventos.GestorEventos;
 
 import javax.naming.OperationNotSupportedException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 public class VistaTexto implements org.iesalandalus.programacion.tallermecanico.vista.Vista {
@@ -233,8 +234,9 @@ public class VistaTexto implements org.iesalandalus.programacion.tallermecanico.
 
     @Override
     public void notificarResultado(Evento evento, String texto, boolean exito){
+        Consola.mostrarCabecera(evento.name());
         if (exito) {
-            System.out.printf("%s: %s%n", evento, texto);
+            System.out.printf("%s%n", texto);
         } else {
             System.out.printf("ERROR: %s%n", texto);
         }
@@ -259,33 +261,20 @@ public class VistaTexto implements org.iesalandalus.programacion.tallermecanico.
     }
 
     @Override
-    public void mostrarClientes(Cliente clientes) {
+    public void mostrarClientes(List<Cliente> clientes) {
         Objects.requireNonNull(clientes, "Los clientes no pueden ser nulos.");
         System.out.printf("%s%n", clientes);
     }
 
     @Override
-    public void mostrarVehiculos(Vehiculos vehiculos) {
+    public void mostrarVehiculos(List<Vehiculo> vehiculos) {
         Objects.requireNonNull(vehiculos, "Los vehículos no pueden ser nulos.");
         System.out.printf("%s%n", vehiculos);
     }
 
     @Override
-    public void mostrarTrabajos(Trabajos trabajos) {
+    public void mostrarTrabajos(List<Trabajo> trabajos) {
         Objects.requireNonNull(trabajos, "Los trabajos no pueden ser nulos.");
         System.out.printf("%s%n", trabajos);
     }
-
-    @Override
-    public void mostrarTrabajosCliente(Trabajos trabajosCliente) {
-        Objects.requireNonNull(trabajosCliente, "Los trabajos para el cliente no pueden ser nulos.");
-        System.out.printf("%s%n", trabajosCliente);
-    }
-
-    @Override
-    public void mostrarTrabajosVehiculo(Trabajos trabajosVehiculo) {
-        Objects.requireNonNull(trabajosVehiculo, "Los trabajos para el vehiculo no pueden ser nulos.");
-        System.out.printf("%s%n", trabajosVehiculo);
-    }
-
 }

@@ -14,14 +14,15 @@ public enum Evento {
     BORRAR_VEHICULO(8, "Borrar vehiculo"),
     LISTAR_VEHICULOS(9, "Listar vehículos"),
     INSERTAR_REVISION(10, "Insertar revisión"),
-    BUSCAR_REVISION(11, "Buscar revisión"),
-    BORRAR_REVISION(12, "Borrar revision"),
-    LISTAR_REVISIONES(13, "Listar revisiones"),
-    LISTAR_REVISIONES_CLIENTE(14, "Listar revisiones del cliente"),
-    LISTAR_REVISIONES_VEHICULO(15, "Listar revisiones del vehiculo"),
-    ANADIR_HORAS_REVISION(16, "Añadir horas revision"),
-    ANADIR_PRECIO_MATERIAL_REVISION(17, "Añadir precio de material de revision."),
-    CERRAR_REVISION(18, "Cerrar revision"),
+    INSERTAR_MECANICO(11, "Insertar mecanico"),
+    BUSCAR_TRABAJO(12, "Buscar trabajo"),
+    BORRAR_TRABAJO(13, "Borrar trabajo"),
+    LISTAR_TRABAJOS(14, "Listar trabajos"),
+    LISTAR_TRABAJOS_CLIENTE(15, "Listar trabajos del cliente"),
+    LISTAR_TRABAJOS_VEHICULO(16, "Listar trabajos del vehiculo"),
+    ANADIR_HORAS_TRABAJO(17, "Añadir horas trabajo"),
+    ANADIR_PRECIO_MATERIAL_TRABAJO(18, "Añadir precio de material a un trabjo."),
+    CERRAR_TRABAJO(19, "Cerrar trabajo"),
     SALIR(19, "Salir");
 
     private final int codigo;
