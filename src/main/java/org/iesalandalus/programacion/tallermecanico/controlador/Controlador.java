@@ -102,7 +102,7 @@ public class Controlador implements IControlador {
                     modelo.cerrar(modelo.buscar(vista.leerTrabajoVehiculo()), vista.leerFechaCierre());
                     resultado = "Se ha cerrado el trabajo correctamente.";
                 }
-                case SALIR -> vista.terminar();
+                case SALIR -> terminar();
             }
             exito = true;
         } catch (Exception e) {
