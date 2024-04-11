@@ -8,6 +8,7 @@ import org.iesalandalus.programacion.tallermecanico.modelo.negocio.memoria.Vehic
 import org.iesalandalus.programacion.tallermecanico.vista.eventos.Evento;
 import org.iesalandalus.programacion.tallermecanico.vista.eventos.GestorEventos;
 
+import javax.naming.OperationNotSupportedException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -36,11 +37,11 @@ public interface Vista {
 
     Trabajo leerTrabajoVehiculo();
 
-    int leerHoras();
+    int leerHoras() throws OperationNotSupportedException;
 
-    float leerPrecioMaterial();
+    float leerPrecioMaterial() throws OperationNotSupportedException;
 
-    LocalDate leerFechaCierre();
+    LocalDate leerFechaCierre() throws OperationNotSupportedException;
 
     void notificarResultado(Evento evento, String texto, boolean exito);
 

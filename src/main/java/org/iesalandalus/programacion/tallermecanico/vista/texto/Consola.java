@@ -17,7 +17,7 @@ public class Consola {
 
     static void mostrarCabecera(String mensaje) {
         Objects.requireNonNull(mensaje);
-        System.out.println(mensaje);
+        System.out.printf("%n%s%n", mensaje);
         System.out.printf(String.format("%s%n", ("-").repeat(mensaje.length())));
     }
 
@@ -62,9 +62,13 @@ public class Consola {
     }
 
     static Evento elegirOpcion(){
-        Evento evento;
+        Evento evento = null;
         do {
-            evento = Evento.get(leerEntero("Elige una opción: "));
+            try {
+                evento = Evento.get(leerEntero("Elige una opción: "));
+            } catch (IllegalArgumentException e) {
+                System.out.printf("%s%n%n", e.getMessage());
+            }
         } while (evento == null);
         return evento;
     }

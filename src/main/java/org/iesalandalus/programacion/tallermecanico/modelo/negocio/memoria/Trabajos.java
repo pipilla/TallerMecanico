@@ -9,6 +9,7 @@ import org.iesalandalus.programacion.tallermecanico.modelo.negocio.ITrabajos;
 import javax.naming.OperationNotSupportedException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -77,30 +78,33 @@ public class Trabajos implements ITrabajos {
     }
 
     private Trabajo getTrabajoAbierto(Vehiculo vehiculo) throws OperationNotSupportedException {
-        Objects.requireNonNull(vehiculo, "No puedo operar sobre un trabajo nulo.");
-        Trabajo trabajo = buscar(Trabajo.get(vehiculo));
-        if (trabajo == null) {
-            throw new OperationNotSupportedException("No existe ningún trabajo igual.");
+        Objects.requireNonNull(vehiculo, "No puedo operar sobre un vehiculo nulo.");
+        Trabajo trabajoEncontrado = null;
+        Iterator<Trabajo> iteradorTrabajos = coleccionTrabajos.iterator();
+        while (iteradorTrabajos.hasNext() && trabajoEncontrado == null) {
+            Trabajo trabajo = iteradorTrabajos.next();
+            if (trabajo.getVehiculo().equals(vehiculo) && !trabajo.estaCerrado()) {
+                trabajoEncontrado = trabajo;
+            }
         }
-        return trabajo;
+        if (trabajoEncontrado == null) {
+            throw new OperationNotSupportedException("No existe ningún trabajo abierto para dicho vehículo.");
+        }
+        return trabajoEncontrado;
     }
 
     @Override
     public void anadirHoras(Trabajo trabajo, int horas) throws OperationNotSupportedException {
         Objects.requireNonNull(trabajo, "No puedo añadir horas a un trabajo nulo.");
-        if (buscar(trabajo) == null) {
-            throw new OperationNotSupportedException("No existe ningún trabajo abierto para dicho vehículo.");
-        }
-        buscar(trabajo).anadirHoras(horas);
+        Trabajo trabajoEncontrado = getTrabajoAbierto(trabajo.getVehiculo());
+        trabajoEncontrado.anadirHoras(horas);
     }
 
     @Override
     public void anadirPrecioMaterial(Trabajo trabajo, float precioMaterial) throws OperationNotSupportedException {
         Objects.requireNonNull(trabajo, "No puedo añadir precio del material a un trabajo nulo.");
-        if (buscar(trabajo) == null || buscar(trabajo).estaCerrado()) {
-            throw new OperationNotSupportedException("No existe ningún trabajo abierto para dicho vehículo.");
-        }
-        if (buscar(trabajo) instanceof Mecanico trabajoMecanico) {
+        Trabajo trabajoEncontrado = getTrabajoAbierto(trabajo.getVehiculo());
+        if (trabajoEncontrado instanceof Mecanico trabajoMecanico) {
             trabajoMecanico.anadirPrecioMaterial(precioMaterial);
         } else {
             throw new OperationNotSupportedException("No se puede añadir precio al material para este tipo de trabajos.");
@@ -110,11 +114,8 @@ public class Trabajos implements ITrabajos {
     @Override
     public void cerrar(Trabajo trabajo, LocalDate fechaFin) throws OperationNotSupportedException {
         Objects.requireNonNull(trabajo, "No puedo cerrar un trabajo nulo.");
-        trabajo = buscar(trabajo);
-        if (trabajo == null) {
-            throw new OperationNotSupportedException("No existe ningún trabajo abierto para dicho vehículo.");
-        }
-        trabajo.cerrar(fechaFin);
+        Trabajo trabajoEncontrado = getTrabajoAbierto(trabajo.getVehiculo());
+        trabajoEncontrado.cerrar(fechaFin);
     }
 
     @Override

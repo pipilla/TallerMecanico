@@ -1,16 +1,13 @@
 package org.iesalandalus.programacion.tallermecanico.modelo.cascada;
 
-import org.iesalandalus.programacion.tallermecanico.modelo.FabricaModelo;
 import org.iesalandalus.programacion.tallermecanico.modelo.dominio.*;
 import org.iesalandalus.programacion.tallermecanico.modelo.negocio.*;
-import org.iesalandalus.programacion.tallermecanico.modelo.negocio.memoria.Clientes;
-import org.iesalandalus.programacion.tallermecanico.modelo.negocio.memoria.Trabajos;
-import org.iesalandalus.programacion.tallermecanico.modelo.negocio.memoria.Vehiculos;
 
 import javax.naming.OperationNotSupportedException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class ModeloCascada implements org.iesalandalus.programacion.tallermecanico.modelo.Modelo {
@@ -47,31 +44,27 @@ public class ModeloCascada implements org.iesalandalus.programacion.tallermecani
     @Override
     public void insertar(Trabajo trabajo) throws OperationNotSupportedException {
         if (trabajo instanceof Revision revision) {
-            trabajos.insertar(new Revision(buscar(revision.getCliente()), buscar(revision.getVehiculo()), revision.getFechaInicio()));
+            trabajos.insertar(new Revision(clientes.buscar(revision.getCliente()), vehiculos.buscar(revision.getVehiculo()), revision.getFechaInicio()));
         } else if (trabajo instanceof Mecanico mecanico) {
-            trabajos.insertar(new Mecanico(buscar(mecanico.getCliente()), buscar(mecanico.getVehiculo()), mecanico.getFechaInicio()));
+            trabajos.insertar(new Mecanico(clientes.buscar(mecanico.getCliente()), vehiculos.buscar(mecanico.getVehiculo()), mecanico.getFechaInicio()));
         }
     }
 
     @Override
     public Cliente buscar(Cliente cliente) {
-        return new Cliente(clientes.buscar(cliente));
+        Cliente clienteEncontrado = Objects.requireNonNull(clientes.buscar(cliente), "El cliente no se encuentra en la lista.");
+        return new Cliente(clienteEncontrado);
     }
 
     @Override
     public Vehiculo buscar(Vehiculo vehiculo) {
-        return vehiculos.buscar(vehiculo);
+        return Objects.requireNonNull(vehiculos.buscar(vehiculo), "El vehiculo no se encuentra en la lista.");
     }
 
     @Override
     public Trabajo buscar(Trabajo trabajo) {
-        trabajo = trabajos.buscar(trabajo);
-        if (trabajo instanceof Revision revision) {
-            trabajo = new Revision(revision);
-        } else if (trabajo instanceof Mecanico mecanico) {
-            trabajo = new Mecanico(mecanico);
-        }
-        return trabajo;
+        trabajo = Objects.requireNonNull(trabajos.buscar(trabajo), "El trabajo no se encuentra en la lista.");
+        return Trabajo.copiar(trabajo);
     }
 
     @Override

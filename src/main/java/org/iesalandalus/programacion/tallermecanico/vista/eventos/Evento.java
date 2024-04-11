@@ -23,7 +23,7 @@ public enum Evento {
     ANADIR_HORAS_TRABAJO(17, "Añadir horas trabajo"),
     ANADIR_PRECIO_MATERIAL_TRABAJO(18, "Añadir precio de material a un trabjo."),
     CERRAR_TRABAJO(19, "Cerrar trabajo"),
-    SALIR(19, "Salir");
+    SALIR(20, "Salir");
 
     private final int codigo;
     private final String texto;
@@ -58,6 +58,6 @@ public enum Evento {
 
     @Override
     public String toString() {
-        return String.format("%s. %s", this.codigo, this.texto);
+        return String.format("%s. %s", getCodigo(), this.texto);
     }
 }
