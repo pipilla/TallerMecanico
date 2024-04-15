@@ -91,7 +91,7 @@ public class Clientes implements IClientes {
 
     @Override
     public List<Cliente> get() {
-        return coleccionClientes = new ArrayList<>(coleccionClientes);
+        return new ArrayList<>(coleccionClientes);
     }
 
     @Override
