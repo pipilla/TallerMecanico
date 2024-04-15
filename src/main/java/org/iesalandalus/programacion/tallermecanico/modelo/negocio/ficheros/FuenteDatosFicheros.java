@@ -13,7 +13,7 @@ public class FuenteDatosFicheros implements IFuenteDatos {
 
     @Override
     public IVehiculos crearVehiculos(){
-        return new Vehiculos();
+        return Vehiculos.getInstancia();
     }
 
     @Override
