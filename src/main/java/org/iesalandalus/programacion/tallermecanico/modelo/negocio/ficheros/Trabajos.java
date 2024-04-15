@@ -1,24 +1,137 @@
 package org.iesalandalus.programacion.tallermecanico.modelo.negocio.ficheros;
 
-import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Cliente;
-import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Mecanico;
-import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Trabajo;
-import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Vehiculo;
+import org.iesalandalus.programacion.tallermecanico.modelo.dominio.*;
 import org.iesalandalus.programacion.tallermecanico.modelo.negocio.ITrabajos;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import javax.naming.OperationNotSupportedException;
+import javax.xml.parsers.DocumentBuilder;
+import java.io.File;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
 public class Trabajos implements ITrabajos {
+    private static final String FICHERO_TRABAJOS = String.format("%s%s%s", "datos", File.separator, "trabajos.xml");
+    private static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private static final String RAIZ = "trabajos";
+    private static final String TRABAJO = "trabajo";
+    private static final String CLIENTE = "cliente";
+    private static final String VEHICULO = "vehiculo";
+    private static final String FECHA_INICIO = "fechaInicio";
+    private static final String FECHA_FIN = "fechaFin";
+    private static final String HORAS = "horas";
+    private static final String PRECIO_MATERIAL = "precioMaterial";
+    private static final String TIPO = "tipo";
+    private static final String REVISION = "revision";
+    private static final String MECANICO = "mecanico";
+    private static Trabajos instancia;
     private List<Trabajo> coleccionTrabajos;
 
-    public Trabajos() {
+    private Trabajos() {
         coleccionTrabajos = new ArrayList<>();
     }
+
+    static Trabajos getInstancia() {
+        if (instancia == null) {
+            instancia = new Trabajos();
+        }
+        return instancia;
+    }
+
+
+    @Override
+    public void comenzar() {
+        Document documentoXml = UtilidadesXml.leerDocumentoXml(FICHERO_TRABAJOS);
+        procesarDocumentoXml(documentoXml);
+    }
+
+    private void procesarDocumentoXml(Document documentoXml) {
+        if (documentoXml != null) {
+            System.out.println("Fichero leído correctamente.");
+            NodeList trabajos = documentoXml.getElementsByTagName(TRABAJO);
+            for (int i = 0; i < trabajos.getLength(); i++) {
+                Node trabajo = trabajos.item(i);
+                if (trabajo.getNodeType() == Node.ELEMENT_NODE) {
+                    try {
+                        coleccionTrabajos.add((getTrabajo((Element) trabajo)));
+                    } catch (OperationNotSupportedException e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
+            }
+        } else {
+            throw new IllegalArgumentException("El fichero no se ha leído correctamente.");
+        }
+    }
+
+    private Trabajo getTrabajo(Element elemento) throws OperationNotSupportedException {
+        Trabajo trabajo;
+        String cliente = elemento.getAttribute(CLIENTE);
+        String vehiculo = elemento.getAttribute(VEHICULO);
+        LocalDate fechaInicio = LocalDate.parse(elemento.getAttribute(FECHA_INICIO), FORMATO_FECHA);
+        if (elemento.getAttribute(TIPO).equals(REVISION)) {
+            trabajo = new Revision(Cliente.get(cliente), Vehiculo.get(vehiculo), fechaInicio);
+        } else {
+            trabajo = new Mecanico(Cliente.get(cliente), Vehiculo.get(vehiculo), fechaInicio);
+            if (elemento.hasAttribute(PRECIO_MATERIAL)) {
+                ((Mecanico) trabajo).anadirPrecioMaterial(Float.parseFloat(elemento.getAttribute(PRECIO_MATERIAL)));
+            }
+        }
+        if (elemento.hasAttribute(FECHA_FIN)) {
+            trabajo.cerrar(LocalDate.parse(elemento.getAttribute(FECHA_FIN), FORMATO_FECHA));
+        }
+        if (elemento.hasAttribute(HORAS)) {
+            trabajo.anadirHoras(Integer.parseInt(elemento.getAttribute(HORAS)));
+        }
+
+        return trabajo;
+    }
+
+    @Override
+    public void terminar() {
+        Document documentoXml = crearDocumentoXml();
+        documentoXml.appendChild(documentoXml.createElement(RAIZ));
+        for (Trabajo trabajo : coleccionTrabajos) {
+            documentoXml.getDocumentElement().appendChild(getElemento(documentoXml, trabajo));
+        }
+        UtilidadesXml.escribirDocumentoXml(documentoXml, FICHERO_TRABAJOS);
+    }
+
+    private Document crearDocumentoXml() {
+        DocumentBuilder constructor = UtilidadesXml.crearConstructorDocumentoXml();
+        return constructor.newDocument();
+    }
+
+    private Element getElemento(Document documentoXml, Trabajo trabajo) {
+        Element elementoTrabajo = documentoXml.createElement(TRABAJO);
+        elementoTrabajo.setAttribute(VEHICULO, trabajo.getVehiculo().matricula());
+        elementoTrabajo.setAttribute(CLIENTE, trabajo.getCliente().getDni());
+        elementoTrabajo.setAttribute(FECHA_INICIO, String.valueOf(trabajo.getFechaInicio()));
+        if (trabajo.estaCerrado()) {
+            elementoTrabajo.setAttribute(FECHA_FIN, String.valueOf(trabajo.getFechaFin()));
+        }
+        if (trabajo instanceof Revision) {
+            elementoTrabajo.setAttribute(TIPO, REVISION);
+        } else if (trabajo instanceof Mecanico) {
+            elementoTrabajo.setAttribute(TIPO, MECANICO);
+            if (((Mecanico) trabajo).getPrecioMaterial() > 0) {
+                elementoTrabajo.setAttribute(PRECIO_MATERIAL, String.format("%f" ,((Mecanico) trabajo).getPrecioMaterial()));
+            }
+        }
+        return elementoTrabajo;
+    }
+
+
+
+
+
 
     @Override
     public List<Trabajo> get() {
