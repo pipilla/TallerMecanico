@@ -22,7 +22,7 @@ public class Trabajos implements ITrabajos {
 
     @Override
     public List<Trabajo> get() {
-        return coleccionTrabajos = new ArrayList<>(coleccionTrabajos);
+        return new ArrayList<>(coleccionTrabajos);
     }
 
     @Override
