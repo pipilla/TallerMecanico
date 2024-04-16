@@ -191,6 +191,5 @@ public class VistaTexto implements org.iesalandalus.programacion.tallermecanico.
         for (TipoTrabajo tipoEstadistica : estadisticas.keySet()) {
             System.out.printf("%s: %s%n", tipoEstadistica, estadisticas.get(tipoEstadistica));
         }
-
     }
 }
