@@ -18,6 +18,6 @@ public class FuenteDatosFicheros implements IFuenteDatos {
 
     @Override
     public ITrabajos crearTrabajos(){
-        return new Trabajos();
+        return Trabajos.getInstancia();
     }
 }

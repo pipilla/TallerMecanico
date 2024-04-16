@@ -23,11 +23,17 @@ public class ModeloCascada implements org.iesalandalus.programacion.tallermecani
     }
     @Override
     public void comenzar() {
+        clientes.comenzar();
+        vehiculos.comenzar();
+        trabajos.comenzar();
         System.out.printf("El modelo ha comenzado.%n");
     }
 
     @Override
     public void terminar() {
+        clientes.terminar();
+        vehiculos.terminar();
+        trabajos.terminar();
         System.out.printf("El modelo ha terminado.%n");
     }
 

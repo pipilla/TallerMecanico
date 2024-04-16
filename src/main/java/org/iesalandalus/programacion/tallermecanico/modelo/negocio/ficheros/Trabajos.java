@@ -12,10 +12,7 @@ import javax.xml.parsers.DocumentBuilder;
 import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Trabajos implements ITrabajos {
     private static final String FICHERO_TRABAJOS = String.format("%s%s%s", "datos", File.separator, "trabajos.xml");
@@ -81,7 +78,7 @@ public class Trabajos implements ITrabajos {
         } else {
             trabajo = new Mecanico(Cliente.get(cliente), Vehiculo.get(vehiculo), fechaInicio);
             if (elemento.hasAttribute(PRECIO_MATERIAL)) {
-                ((Mecanico) trabajo).anadirPrecioMaterial(Float.parseFloat(elemento.getAttribute(PRECIO_MATERIAL)));
+                ((Mecanico) trabajo).anadirPrecioMaterial(Float.parseFloat((elemento.getAttribute(PRECIO_MATERIAL)).replace('.',',')));
             }
         }
         if (elemento.hasAttribute(FECHA_FIN)) {
@@ -90,7 +87,6 @@ public class Trabajos implements ITrabajos {
         if (elemento.hasAttribute(HORAS)) {
             trabajo.anadirHoras(Integer.parseInt(elemento.getAttribute(HORAS)));
         }
-
         return trabajo;
     }
 
@@ -117,21 +113,19 @@ public class Trabajos implements ITrabajos {
         if (trabajo.estaCerrado()) {
             elementoTrabajo.setAttribute(FECHA_FIN, String.valueOf(trabajo.getFechaFin()));
         }
+        if (trabajo.getHoras() > 0) {
+            elementoTrabajo.setAttribute(HORAS, String.valueOf(trabajo.getHoras()));
+        }
         if (trabajo instanceof Revision) {
             elementoTrabajo.setAttribute(TIPO, REVISION);
         } else if (trabajo instanceof Mecanico) {
             elementoTrabajo.setAttribute(TIPO, MECANICO);
             if (((Mecanico) trabajo).getPrecioMaterial() > 0) {
-                elementoTrabajo.setAttribute(PRECIO_MATERIAL, String.format("%f" ,((Mecanico) trabajo).getPrecioMaterial()));
+                elementoTrabajo.setAttribute(PRECIO_MATERIAL, String.format(Locale.US, "%f" ,((Mecanico) trabajo).getPrecioMaterial()));
             }
         }
         return elementoTrabajo;
     }
-
-
-
-
-
 
     @Override
     public List<Trabajo> get() {
@@ -158,6 +152,14 @@ public class Trabajos implements ITrabajos {
             }
         }
         return coleccionTrabajosVehiculo;
+    }
+
+    public Map<TipoTrabajo, Integer> getEstadisticasMensuales(LocalDate mes) {
+
+    }
+
+    private Map<TipoTrabajo, Integer> inicializarEstadisticas() {
+
     }
 
     @Override
