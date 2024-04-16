@@ -12,7 +12,7 @@ public enum TipoTrabajo {
         this.nombre = nombre;
     }
 
-    static TipoTrabajo get(Trabajo trabajo) {
+    public static TipoTrabajo get(Trabajo trabajo) {
         Objects.requireNonNull(trabajo, "El trabajo no puede ser nulo.");
         if (trabajo instanceof Revision) {
             return REVISION;

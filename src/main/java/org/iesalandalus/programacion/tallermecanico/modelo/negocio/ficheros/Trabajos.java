@@ -154,12 +154,31 @@ public class Trabajos implements ITrabajos {
         return coleccionTrabajosVehiculo;
     }
 
+    @Override
     public Map<TipoTrabajo, Integer> getEstadisticasMensuales(LocalDate mes) {
-
+        Map<TipoTrabajo, Integer> estadisticas = inicializarEstadisticas();
+        int revisionesMensuales = 0;
+        int mecanicosMensuales = 0;
+        for (Trabajo trabajo : coleccionTrabajos) {
+            if (trabajo.getFechaInicio().getMonth() == mes.getMonth() && trabajo.getFechaInicio().getYear() == mes.getYear()) {
+                if (TipoTrabajo.get(trabajo).equals(TipoTrabajo.REVISION)){
+                    revisionesMensuales++;
+                } else {
+                    mecanicosMensuales++;
+                }
+            }
+        }
+        if (revisionesMensuales > 0) {
+            estadisticas.put(TipoTrabajo.REVISION, revisionesMensuales);
+        }
+        if (mecanicosMensuales > 0) {
+            estadisticas.put(TipoTrabajo.MECANICO, mecanicosMensuales);
+        }
+        return estadisticas;
     }
 
     private Map<TipoTrabajo, Integer> inicializarEstadisticas() {
-
+        return new HashMap<>();
     }
 
     @Override
