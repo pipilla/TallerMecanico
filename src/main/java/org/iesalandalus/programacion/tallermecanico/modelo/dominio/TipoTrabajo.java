@@ -3,10 +3,10 @@ package org.iesalandalus.programacion.tallermecanico.modelo.dominio;
 import java.util.Objects;
 
 public enum TipoTrabajo {
-    MECANICO("Mecanico"),
+    MECANICO("Mecánico"),
     REVISION("Revisión");
 
-    final String nombre;
+    public final String nombre;
 
     TipoTrabajo(String nombre) {
         this.nombre = nombre;

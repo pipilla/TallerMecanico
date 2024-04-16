@@ -42,6 +42,7 @@ public interface Vista {
     float leerPrecioMaterial() throws OperationNotSupportedException;
 
     LocalDate leerFechaCierre() throws OperationNotSupportedException;
+    LocalDate leerMes();
 
     void notificarResultado(Evento evento, String texto, boolean exito);
 

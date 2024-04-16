@@ -21,11 +21,13 @@ public class Controlador implements IControlador {
 
     @Override
     public void comenzar() {
+        modelo.comenzar();
         vista.comenzar();
     }
 
     @Override
     public void terminar() {
+        modelo.terminar();
         vista.terminar();
     }
 
@@ -97,6 +99,7 @@ public class Controlador implements IControlador {
                     modelo.cerrar((vista.leerTrabajoVehiculo()), vista.leerFechaCierre());
                     resultado = "Se ha cerrado el trabajo correctamente.";
                 }
+                case MOSTRAR_ESTADISTICAS_MENSUALES -> vista.mostrarEstadisticasMensuales(modelo.getEstadisticasMensuales(vista.leerMes()));
                 case SALIR -> terminar();
             }
             exito = true;

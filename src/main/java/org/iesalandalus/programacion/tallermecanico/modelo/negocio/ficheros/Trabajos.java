@@ -78,7 +78,7 @@ public class Trabajos implements ITrabajos {
         } else {
             trabajo = new Mecanico(Cliente.get(cliente), Vehiculo.get(vehiculo), fechaInicio);
             if (elemento.hasAttribute(PRECIO_MATERIAL)) {
-                ((Mecanico) trabajo).anadirPrecioMaterial(Float.parseFloat((elemento.getAttribute(PRECIO_MATERIAL)).replace('.',',')));
+                ((Mecanico) trabajo).anadirPrecioMaterial(Float.parseFloat((elemento.getAttribute(PRECIO_MATERIAL)).replace('.','.')));
             }
         }
         if (elemento.hasAttribute(HORAS)) {
@@ -109,9 +109,9 @@ public class Trabajos implements ITrabajos {
         Element elementoTrabajo = documentoXml.createElement(TRABAJO);
         elementoTrabajo.setAttribute(VEHICULO, trabajo.getVehiculo().matricula());
         elementoTrabajo.setAttribute(CLIENTE, trabajo.getCliente().getDni());
-        elementoTrabajo.setAttribute(FECHA_INICIO, String.valueOf(trabajo.getFechaInicio()));
+        elementoTrabajo.setAttribute(FECHA_INICIO, trabajo.getFechaInicio().format(FORMATO_FECHA));
         if (trabajo.estaCerrado()) {
-            elementoTrabajo.setAttribute(FECHA_FIN, String.valueOf(trabajo.getFechaFin()));
+            elementoTrabajo.setAttribute(FECHA_FIN, trabajo.getFechaFin().format(FORMATO_FECHA));
         }
         if (trabajo.getHoras() > 0) {
             elementoTrabajo.setAttribute(HORAS, String.valueOf(trabajo.getHoras()));

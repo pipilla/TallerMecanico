@@ -119,6 +119,10 @@ public class VistaTexto implements org.iesalandalus.programacion.tallermecanico.
         return fechaCierre;
     }
 
+    public LocalDate leerMes() {
+        return Consola.leerFecha("Dime una fecha para comprobar su mes: ");
+    }
+
     @Override
     public void notificarResultado(Evento evento, String texto, boolean exito){
         if (!texto.isBlank()) {
@@ -187,9 +191,9 @@ public class VistaTexto implements org.iesalandalus.programacion.tallermecanico.
     @Override
     public void mostrarEstadisticasMensuales(Map<TipoTrabajo, Integer> estadisticas) {
         Objects.requireNonNull(estadisticas, "La estadística no puede ser nula.");
-        System.out.printf("Las estadísticas para este mes son:%n");
+        System.out.printf("%nLas estadísticas para este mes son:%n");
         for (TipoTrabajo tipoEstadistica : estadisticas.keySet()) {
-            System.out.printf("%s: %s%n", tipoEstadistica, estadisticas.get(tipoEstadistica));
+            System.out.printf("%s: %s%n", tipoEstadistica.nombre, estadisticas.get(tipoEstadistica));
         }
     }
 }
