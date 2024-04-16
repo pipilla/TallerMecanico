@@ -81,11 +81,11 @@ public class Trabajos implements ITrabajos {
                 ((Mecanico) trabajo).anadirPrecioMaterial(Float.parseFloat((elemento.getAttribute(PRECIO_MATERIAL)).replace('.',',')));
             }
         }
-        if (elemento.hasAttribute(FECHA_FIN)) {
-            trabajo.cerrar(LocalDate.parse(elemento.getAttribute(FECHA_FIN), FORMATO_FECHA));
-        }
         if (elemento.hasAttribute(HORAS)) {
             trabajo.anadirHoras(Integer.parseInt(elemento.getAttribute(HORAS)));
+        }
+        if (elemento.hasAttribute(FECHA_FIN)) {
+            trabajo.cerrar(LocalDate.parse(elemento.getAttribute(FECHA_FIN), FORMATO_FECHA));
         }
         return trabajo;
     }
@@ -156,6 +156,7 @@ public class Trabajos implements ITrabajos {
 
     @Override
     public Map<TipoTrabajo, Integer> getEstadisticasMensuales(LocalDate mes) {
+        Objects.requireNonNull(mes, "El mes no puede ser nulo.");
         Map<TipoTrabajo, Integer> estadisticas = inicializarEstadisticas();
         int revisionesMensuales = 0;
         int mecanicosMensuales = 0;
@@ -168,12 +169,8 @@ public class Trabajos implements ITrabajos {
                 }
             }
         }
-        if (revisionesMensuales > 0) {
-            estadisticas.put(TipoTrabajo.REVISION, revisionesMensuales);
-        }
-        if (mecanicosMensuales > 0) {
-            estadisticas.put(TipoTrabajo.MECANICO, mecanicosMensuales);
-        }
+        estadisticas.put(TipoTrabajo.REVISION, revisionesMensuales);
+        estadisticas.put(TipoTrabajo.MECANICO, mecanicosMensuales);
         return estadisticas;
     }
 

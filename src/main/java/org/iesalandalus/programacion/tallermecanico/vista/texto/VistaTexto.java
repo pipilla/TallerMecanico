@@ -7,6 +7,7 @@ import org.iesalandalus.programacion.tallermecanico.vista.eventos.GestorEventos;
 import javax.naming.OperationNotSupportedException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class VistaTexto implements org.iesalandalus.programacion.tallermecanico.vista.Vista {
@@ -182,5 +183,14 @@ public class VistaTexto implements org.iesalandalus.programacion.tallermecanico.
         } else {
             System.out.printf("No existe ningún trabajo.%n");
         }
+    }
+    @Override
+    public void mostrarEstadisticasMensuales(Map<TipoTrabajo, Integer> estadisticas) {
+        Objects.requireNonNull(estadisticas, "La estadística no puede ser nula.");
+        System.out.printf("Las estadísticas para este mes son:%n");
+        for (TipoTrabajo tipoEstadistica : estadisticas.keySet()) {
+            System.out.printf("%s: %s%n", tipoEstadistica, estadisticas.get(tipoEstadistica));
+        }
+
     }
 }
