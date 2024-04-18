@@ -4,4 +4,6 @@
     <vehiculo marca="Seat" matricula="1111BBB" modelo="León"/>
     <vehiculo marca="Renault" matricula="2222CCC" modelo="Megane"/>
     <vehiculo marca="Mercedes-Benz" matricula="3333DDD" modelo="eSprinter"/>
+    <vehiculo marca="Seat" matricula="7373JKL" modelo="Panda"/>
+    <vehiculo marca="Opel" matricula="3434TRH" modelo="Corsa"/>
 </vehiculos>
