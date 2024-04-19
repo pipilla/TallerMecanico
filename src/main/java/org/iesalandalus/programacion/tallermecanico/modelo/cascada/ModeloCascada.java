@@ -5,10 +5,7 @@ import org.iesalandalus.programacion.tallermecanico.modelo.negocio.*;
 
 import javax.naming.OperationNotSupportedException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 
 public class ModeloCascada implements org.iesalandalus.programacion.tallermecanico.modelo.Modelo {
@@ -120,12 +117,15 @@ public class ModeloCascada implements org.iesalandalus.programacion.tallermecani
         for (Cliente cliente : clientes.get()) {
             nuevosClientes.add(new Cliente(cliente));
         }
+        nuevosClientes.sort(Comparator.comparing(Cliente::getNombre).thenComparing(Cliente::getDni));
         return nuevosClientes;
     }
 
     @Override
     public List<Vehiculo> getVehiculos() {
-        return new ArrayList<>(vehiculos.get());
+        List<Vehiculo> nuevosVehiculos = new ArrayList<>(vehiculos.get());
+        nuevosVehiculos.sort(Comparator.comparing(Vehiculo::marca).thenComparing(Vehiculo::modelo).thenComparing(Vehiculo::matricula));
+        return nuevosVehiculos;
     }
 
     @Override
@@ -138,6 +138,9 @@ public class ModeloCascada implements org.iesalandalus.programacion.tallermecani
                 nuevosTrabajos.add(new Mecanico(mecanico));
             }
         }
+        Comparator<Cliente> comparadorCliente = Comparator.comparing(Cliente::getNombre).thenComparing(Cliente::getDni);
+        Comparator<Vehiculo> comparadorVehiculo = Comparator.comparing(Vehiculo::marca).thenComparing(Vehiculo::modelo).thenComparing(Vehiculo::matricula);
+        nuevosTrabajos.sort(Comparator.comparing(Trabajo::getFechaInicio).thenComparing(Trabajo::getCliente, comparadorCliente).thenComparing(Trabajo::getVehiculo, comparadorVehiculo));
         return nuevosTrabajos;
     }
 
@@ -151,6 +154,8 @@ public class ModeloCascada implements org.iesalandalus.programacion.tallermecani
                 nuevosTrabajos.add(new Mecanico(mecanico));
             }
         }
+        Comparator<Vehiculo> comparadorVehiculo = Comparator.comparing(Vehiculo::marca).thenComparing(Vehiculo::modelo).thenComparing(Vehiculo::matricula);
+        nuevosTrabajos.sort(Comparator.comparing(Trabajo::getFechaInicio).thenComparing(Trabajo::getVehiculo, comparadorVehiculo));
         return nuevosTrabajos;
     }
 
@@ -164,6 +169,8 @@ public class ModeloCascada implements org.iesalandalus.programacion.tallermecani
                 nuevosTrabajos.add(new Mecanico(mecanico));
             }
         }
+        Comparator<Cliente> comparadorCliente = Comparator.comparing(Cliente::getNombre).thenComparing(Cliente::getDni);
+        nuevosTrabajos.sort(Comparator.comparing(Trabajo::getFechaInicio).thenComparing(Trabajo::getCliente, comparadorCliente));
         return nuevosTrabajos;
     }
 
