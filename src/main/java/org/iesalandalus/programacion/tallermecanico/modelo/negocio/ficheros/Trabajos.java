@@ -74,9 +74,9 @@ public class Trabajos implements ITrabajos {
         String vehiculo = elemento.getAttribute(VEHICULO);
         LocalDate fechaInicio = LocalDate.parse(elemento.getAttribute(FECHA_INICIO), FORMATO_FECHA);
         if (elemento.getAttribute(TIPO).equals(REVISION)) {
-            trabajo = new Revision(Cliente.get(cliente), Vehiculo.get(vehiculo), fechaInicio);
+            trabajo = new Revision(Clientes.getInstancia().buscar(Cliente.get(cliente)), Vehiculos.getInstancia().buscar(Vehiculo.get(vehiculo)), fechaInicio);
         } else {
-            trabajo = new Mecanico(Cliente.get(cliente), Vehiculo.get(vehiculo), fechaInicio);
+            trabajo = new Mecanico(Clientes.getInstancia().buscar(Cliente.get(cliente)), Vehiculos.getInstancia().buscar(Vehiculo.get(vehiculo)), fechaInicio);
             if (elemento.hasAttribute(PRECIO_MATERIAL)) {
                 ((Mecanico) trabajo).anadirPrecioMaterial(Float.parseFloat((elemento.getAttribute(PRECIO_MATERIAL)).replace('.','.')));
             }
