@@ -48,12 +48,14 @@ public class Vehiculos implements IVehiculos {
             NodeList vehiculos = documentoXml.getElementsByTagName(VEHICULO);
             for (int i = 0; i < vehiculos.getLength(); i++) {
                 Node vehiculo = vehiculos.item(i);
-                if (vehiculo.getNodeType() == Node.ELEMENT_NODE) {
-                    coleccionVehiculos.add((getVehiculo((Element) vehiculo)));
+                try {
+                    if (vehiculo.getNodeType() == Node.ELEMENT_NODE) {
+                        insertar(getVehiculo((Element) vehiculo));
+                    }
+                } catch (OperationNotSupportedException|IllegalArgumentException|NullPointerException e) {
+                    System.out.printf("Error al leer el vehículo %d. --> %s%n", i, e.getMessage());
                 }
             }
-        } else {
-            throw new IllegalArgumentException("El fichero no se ha leído correctamente.");
         }
     }
 

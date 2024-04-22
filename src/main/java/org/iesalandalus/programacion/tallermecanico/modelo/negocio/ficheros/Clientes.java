@@ -48,12 +48,14 @@ public class Clientes implements IClientes {
             NodeList clientes = documentoXml.getElementsByTagName(CLIENTE);
             for (int i = 0; i < clientes.getLength(); i++) {
                 Node cliente = clientes.item(i);
-                if (cliente.getNodeType() == Node.ELEMENT_NODE) {
-                    coleccionClientes.add((getCliente((Element) cliente)));
+                try {
+                    if (cliente.getNodeType() == Node.ELEMENT_NODE) {
+                        insertar(getCliente((Element) cliente));
+                    }
+                } catch (OperationNotSupportedException|IllegalArgumentException|NullPointerException e) {
+                    System.out.printf("Error al leer el cliente %d. --> %s%n", i, e.getMessage());
                 }
             }
-        } else {
-            throw new IllegalArgumentException("El fichero no se ha leído correctamente.");
         }
     }
 

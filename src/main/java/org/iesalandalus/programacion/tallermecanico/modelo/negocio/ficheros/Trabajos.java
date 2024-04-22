@@ -55,16 +55,14 @@ public class Trabajos implements ITrabajos {
             NodeList trabajos = documentoXml.getElementsByTagName(TRABAJO);
             for (int i = 0; i < trabajos.getLength(); i++) {
                 Node trabajo = trabajos.item(i);
-                if (trabajo.getNodeType() == Node.ELEMENT_NODE) {
-                    try {
-                        coleccionTrabajos.add((getTrabajo((Element) trabajo)));
-                    } catch (OperationNotSupportedException e) {
-                        System.out.println(e.getMessage());
+                try {
+                    if (trabajo.getNodeType() == Node.ELEMENT_NODE) {
+                        insertar(getTrabajo((Element) trabajo));
                     }
+                } catch (OperationNotSupportedException|IllegalArgumentException|NullPointerException e) {
+                    System.out.printf("Error al leer el trabajo %d. --> %s%n", i, e.getMessage());
                 }
             }
-        } else {
-            throw new IllegalArgumentException("El fichero no se ha leído correctamente.");
         }
     }
 
