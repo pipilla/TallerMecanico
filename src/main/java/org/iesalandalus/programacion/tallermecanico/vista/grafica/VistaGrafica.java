@@ -14,9 +14,21 @@ import java.util.List;
 import java.util.Map;
 
 public class VistaGrafica implements Vista {
+    private final GestorEventos gestorEventos = new GestorEventos(Evento.values());
+    private static VistaGrafica instancia;
+
+    public static VistaGrafica getInstancia() {
+        if (instancia == null) {
+            instancia = new VistaGrafica();
+        }
+        return instancia;
+    }
+
+
+
     @Override
     public GestorEventos getGestorEventos() {
-        return null;
+        return gestorEventos;
     }
 
     @Override
@@ -132,5 +144,17 @@ public class VistaGrafica implements Vista {
     @Override
     public void mostrarEstadisticasMensuales(Map<TipoTrabajo, Integer> estadisticas) {
 
+    }
+
+    @Override
+    public void mostrarTrabajosCliente(List<Trabajo> trabajos) {
+        /* CAMBIAR MÁS TARDE */
+        mostrarTrabajos(trabajos);
+    }
+
+    @Override
+    public void mostrarTrabajosVehiculo(List<Trabajo> trabajos) {
+        /* CAMBIAR MÁS TARDE */
+        mostrarTrabajos(trabajos);
     }
 }
