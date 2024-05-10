@@ -2,8 +2,7 @@ package org.iesalandalus.programacion.tallermecanico.vista.grafica;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import org.iesalandalus.programacion.tallermecanico.vista.grafica.utilidades.Controlador;
-import org.iesalandalus.programacion.tallermecanico.vista.grafica.utilidades.Controladores;
+import org.iesalandalus.programacion.tallermecanico.vista.grafica.utilidades.*;
 
 public class LanzadorVentanaPrincipal extends Application {
     @Override
