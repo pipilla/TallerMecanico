@@ -7,6 +7,7 @@ import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Vehiculo;
 import org.iesalandalus.programacion.tallermecanico.vista.Vista;
 import org.iesalandalus.programacion.tallermecanico.vista.eventos.Evento;
 import org.iesalandalus.programacion.tallermecanico.vista.eventos.GestorEventos;
+import org.iesalandalus.programacion.tallermecanico.vista.grafica.utilidades.Controlador;
 
 import javax.naming.OperationNotSupportedException;
 import java.time.LocalDate;
@@ -17,6 +18,8 @@ public class VistaGrafica implements Vista {
     private final GestorEventos gestorEventos = new GestorEventos(Evento.values());
     private static VistaGrafica instancia;
 
+    private Controlador ventanaPrincipal;
+
     public static VistaGrafica getInstancia() {
         if (instancia == null) {
             instancia = new VistaGrafica();
@@ -24,11 +27,13 @@ public class VistaGrafica implements Vista {
         return instancia;
     }
 
-
-
     @Override
     public GestorEventos getGestorEventos() {
         return gestorEventos;
+    }
+
+    public void setGestorEventos(Controlador ventanaPrincipal) {
+        this.ventanaPrincipal = ventanaPrincipal;
     }
 
     @Override
