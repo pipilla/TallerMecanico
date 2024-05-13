@@ -36,9 +36,13 @@ public class VistaGrafica implements Vista {
         this.ventanaPrincipal = ventanaPrincipal;
     }
 
+    public void setVentanaPrincipal(Controlador ventanaPrincipal) {
+        this.ventanaPrincipal = ventanaPrincipal;
+    }
+
     @Override
     public void comenzar() {
-
+        LanzadorVentanaPrincipal.comenzar();
     }
 
     @Override

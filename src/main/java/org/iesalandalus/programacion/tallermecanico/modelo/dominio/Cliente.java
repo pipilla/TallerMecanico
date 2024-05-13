@@ -3,9 +3,9 @@ package org.iesalandalus.programacion.tallermecanico.modelo.dominio;
 import java.util.Objects;
 
 public class Cliente {
-    private static final String ER_NOMBRE = "(?:[A-Z][a-z√°√©√≠√≥√∫√±]+[ ]?)+";
-    private static final String ER_DNI = "\\d{8}[A-Z]";
-    private static final String ER_TELEFONO = "\\d{9}";
+    public static final String ER_NOMBRE = "(?:[A-Z][a-z·ÈÌÛ˙Ò]+[ ]?)+";
+    public static final String ER_DNI = "\\d{8}[A-Z]";
+    public static final String ER_TELEFONO = "\\d{9}";
 
     private String nombre;
     private String dni;
@@ -31,7 +31,7 @@ public class Cliente {
     public void setNombre(String nombre) {
         Objects.requireNonNull(nombre, "El nombre no puede ser nulo.");
         if (!nombre.matches(ER_NOMBRE)) {
-            throw new IllegalArgumentException("El nombre no tiene un formato v√°lido.");
+            throw new IllegalArgumentException("El nombre no tiene un formato v·lido.");
         }
         this.nombre = nombre;
     }
@@ -43,7 +43,7 @@ public class Cliente {
     private void setDni(String dni) {
         Objects.requireNonNull(dni, "El DNI no puede ser nulo.");
         if (!dni.matches(ER_DNI)) {
-            throw new IllegalArgumentException("El DNI no tiene un formato v√°lido.");
+            throw new IllegalArgumentException("El DNI no tiene un formato v·lido.");
         }
         if (!comprobarLetraDni(dni)) {
             throw new IllegalArgumentException("La letra del DNI no es correcta.");
@@ -66,9 +66,9 @@ public class Cliente {
     }
 
     public void setTelefono(String telefono) {
-        Objects.requireNonNull(telefono, "El tel√©fono no puede ser nulo.");
+        Objects.requireNonNull(telefono, "El telÈfono no puede ser nulo.");
         if (!telefono.matches(ER_TELEFONO)) {
-            throw new IllegalArgumentException("El tel√©fono no tiene un formato v√°lido.");
+            throw new IllegalArgumentException("El telÈfono no tiene un formato v·lido.");
         }
         this.telefono = telefono;
     }
