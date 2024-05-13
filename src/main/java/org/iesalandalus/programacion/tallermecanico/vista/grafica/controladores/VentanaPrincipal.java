@@ -2,21 +2,28 @@ package org.iesalandalus.programacion.tallermecanico.vista.grafica.controladores
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import org.iesalandalus.programacion.tallermecanico.vista.grafica.utilidades.*;
 
 public class VentanaPrincipal extends Controlador {
 
-    @FXML
-    private Label lbCliente;
+    private LeerCliente leerCliente;
 
     @FXML
-    void insertarCliente(ActionEvent event) {
+    void buscarCliente() {
 
     }
 
     @FXML
-    void mostrarCliente(ActionEvent event) {
+    void insertarCliente() {
+        leerCliente = (LeerCliente) Controladores.get("/vistas/LeerCliente.fxml", "Leer Cliente", getEscenario());
+        leerCliente.limpiar();
+        leerCliente.setVentanaPrincipal(this);
+        leerCliente.getEscenario().show();
+    }
+
+    @FXML
+    void listarCliente() {
 
     }
+
 }
