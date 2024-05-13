@@ -18,7 +18,10 @@ public class VentanaPrincipal extends Controlador {
         leerCliente = (LeerCliente) Controladores.get("/vistas/LeerCliente.fxml", "Leer Cliente", getEscenario());
         leerCliente.limpiar();
         leerCliente.setVentanaPrincipal(this);
-        leerCliente.getEscenario().show();
+        leerCliente.getEscenario().showAndWait();
+        if (leerCliente.isAceptado()) {
+
+        }
     }
 
     @FXML

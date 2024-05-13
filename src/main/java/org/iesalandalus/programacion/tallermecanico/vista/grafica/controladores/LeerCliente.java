@@ -19,6 +19,7 @@ public class LeerCliente extends Controlador {
 
     @FXML
     private TextField tfTelefono;
+    private boolean aceptado = false;
 
     public VentanaPrincipal ventanaPrincipal;
     public void setVentanaPrincipal(VentanaPrincipal ventana) {
@@ -31,9 +32,13 @@ public class LeerCliente extends Controlador {
         tfNombre.setStyle(null);
         tfTelefono.clear();
         tfTelefono.setStyle(null);
+        aceptado = false;
     }
     public Cliente getCliente() {
         return new Cliente(tfNombre.getText(), tfDni.getText(), tfTelefono.getText());
+    }
+    public boolean isAceptado() {
+        return aceptado;
     }
     private void comprobarDni(String nuevoDni) {
         if (nuevoDni.matches(Cliente.ER_DNI)) {
@@ -60,6 +65,7 @@ public class LeerCliente extends Controlador {
     void aceptar() {
         try {
             System.out.println(getCliente());
+            aceptado = true;
             getEscenario().close();
         } catch (Exception e) {
             Dialogos.mostrarDialogoAdvertencia("Error", e.getMessage(), getEscenario());
