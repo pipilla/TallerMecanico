@@ -74,7 +74,10 @@ public class LeerCliente extends Controlador {
 
     @FXML
     void cancelar() {
-        getEscenario().close();
+        aceptado = false;
+        if (Dialogos.mostrarDialogoConfirmacion("Insertar Cliente", "¿Estás seguro de que quieres cancelar la inserción?", this.getEscenario())) {
+            getEscenario().close();
+        }
     }
 
     @FXML

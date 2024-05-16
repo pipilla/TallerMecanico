@@ -7,7 +7,10 @@ import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Vehiculo;
 import org.iesalandalus.programacion.tallermecanico.vista.Vista;
 import org.iesalandalus.programacion.tallermecanico.vista.eventos.Evento;
 import org.iesalandalus.programacion.tallermecanico.vista.eventos.GestorEventos;
+import org.iesalandalus.programacion.tallermecanico.vista.grafica.controladores.LeerCliente;
+import org.iesalandalus.programacion.tallermecanico.vista.grafica.controladores.VentanaPrincipal;
 import org.iesalandalus.programacion.tallermecanico.vista.grafica.utilidades.Controlador;
+import org.iesalandalus.programacion.tallermecanico.vista.grafica.utilidades.Controladores;
 
 import javax.naming.OperationNotSupportedException;
 import java.time.LocalDate;
@@ -32,10 +35,6 @@ public class VistaGrafica implements Vista {
         return gestorEventos;
     }
 
-    public void setGestorEventos(Controlador ventanaPrincipal) {
-        this.ventanaPrincipal = ventanaPrincipal;
-    }
-
     public void setVentanaPrincipal(Controlador ventanaPrincipal) {
         this.ventanaPrincipal = ventanaPrincipal;
     }
@@ -52,7 +51,8 @@ public class VistaGrafica implements Vista {
 
     @Override
     public Cliente leerCliente() {
-        return null;
+        LeerCliente leerCliente = (LeerCliente) Controladores.get("/vistas/LeerCliente.fxml", "Leer Cliente", null);
+        return
     }
 
     @Override

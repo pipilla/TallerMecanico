@@ -2,11 +2,13 @@ package org.iesalandalus.programacion.tallermecanico.vista.grafica.controladores
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Cliente;
 import org.iesalandalus.programacion.tallermecanico.vista.grafica.utilidades.*;
 
 public class VentanaPrincipal extends Controlador {
+    public Cliente cliente;
 
-    private LeerCliente leerCliente;
+    public LeerCliente leerCliente;
 
     @FXML
     void buscarCliente() {
@@ -14,19 +16,23 @@ public class VentanaPrincipal extends Controlador {
     }
 
     @FXML
-    void insertarCliente() {
+    public void insertarCliente() {
         leerCliente = (LeerCliente) Controladores.get("/vistas/LeerCliente.fxml", "Leer Cliente", getEscenario());
         leerCliente.limpiar();
-        leerCliente.setVentanaPrincipal(this);
         leerCliente.getEscenario().showAndWait();
-        if (leerCliente.isAceptado()) {
+        if (!leerCliente.isAceptado()) {
 
+        } else {
+            cliente = leerCliente.getCliente();
         }
     }
 
     @FXML
     void listarCliente() {
 
+    }
+    public Cliente getCliente() {
+        return cliente;
     }
 
 }
