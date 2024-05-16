@@ -3,6 +3,8 @@ package org.iesalandalus.programacion.tallermecanico.vista.grafica.controladores
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import org.iesalandalus.programacion.tallermecanico.modelo.dominio.Cliente;
+import org.iesalandalus.programacion.tallermecanico.vista.eventos.Evento;
+import org.iesalandalus.programacion.tallermecanico.vista.grafica.VistaGrafica;
 import org.iesalandalus.programacion.tallermecanico.vista.grafica.utilidades.*;
 
 public class VentanaPrincipal extends Controlador {
@@ -21,9 +23,7 @@ public class VentanaPrincipal extends Controlador {
         leerCliente.limpiar();
         leerCliente.getEscenario().showAndWait();
         if (!leerCliente.isAceptado()) {
-
-        } else {
-            cliente = leerCliente.getCliente();
+            VistaGrafica.getInstancia().getGestorEventos().notificar(Evento.INSERTAR_CLIENTE);
         }
     }
 

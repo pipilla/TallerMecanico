@@ -52,7 +52,7 @@ public class VistaGrafica implements Vista {
     @Override
     public Cliente leerCliente() {
         LeerCliente leerCliente = (LeerCliente) Controladores.get("/vistas/LeerCliente.fxml", "Leer Cliente", null);
-        return
+        return leerCliente.getCliente();
     }
 
     @Override
