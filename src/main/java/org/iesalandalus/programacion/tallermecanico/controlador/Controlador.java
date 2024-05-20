@@ -105,6 +105,7 @@ public class Controlador implements IControlador {
             exito = true;
         } catch (OperationNotSupportedException | IllegalArgumentException | NullPointerException e) {
             resultado = e.getMessage();
+            e.printStackTrace();
         }
         vista.notificarResultado(evento,resultado,exito);
     }

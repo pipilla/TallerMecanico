@@ -15,7 +15,7 @@ public class Main {
     }
 
     private static Pair<FabricaVista, FabricaFuenteDatos> procesarArgumentos(String[] args) {
-        FabricaVista fabricaVista = FabricaVista.GRAFICA;
+        FabricaVista fabricaVista = FabricaVista.TEXTO;
         FabricaFuenteDatos fabricaFuenteDatos = FabricaFuenteDatos.MARIADB;
         for (String argumento : args) {
             if (argumento.equalsIgnoreCase("-vventas")) {
