@@ -22,7 +22,7 @@ public class Consola {
     }
 
     static void mostrarMenu() {
-        mostrarCabecera("MENÃš");
+        mostrarCabecera("MENÚ");
         for (Evento evento : Evento.values()) {
             System.out.printf("%s%n", evento);
         }
@@ -55,7 +55,7 @@ public class Consola {
                 fecha = LocalDate.parse(leerCadena(mensaje), DateTimeFormatter.ofPattern(CADENA_FORMATO_FECHA));
                 fechaCorrecta = true;
             } catch (DateTimeParseException ignored){
-                System.out.printf("La fecha introducida tiene un formato invÃ¡lido (dd/MM/yyyy).%n");
+                System.out.printf("La fecha introducida tiene un formato inválido (dd/MM/yyyy).%n");
             }
         } while (!fechaCorrecta);
         return fecha;
@@ -65,7 +65,7 @@ public class Consola {
         Evento evento = null;
         do {
             try {
-                evento = Evento.get(leerEntero("Elige una opciÃ³n: "));
+                evento = Evento.get(leerEntero("Elige una opción: "));
             } catch (IllegalArgumentException e) {
                 System.out.printf("%s%n%n", e.getMessage());
             }

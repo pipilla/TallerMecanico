@@ -12,18 +12,18 @@ public enum Evento {
     INSERTAR_VEHICULO(6, "Insertar vehiculo"),
     BUSCAR_VEHICULO(7, "Buscar vehiculo"),
     BORRAR_VEHICULO(8, "Borrar vehiculo"),
-    LISTAR_VEHICULOS(9, "Listar vehÃ­culos"),
-    INSERTAR_REVISION(10, "Insertar revisiÃ³n"),
+    LISTAR_VEHICULOS(9, "Listar vehículos"),
+    INSERTAR_REVISION(10, "Insertar revisión"),
     INSERTAR_MECANICO(11, "Insertar mecanico"),
     BUSCAR_TRABAJO(12, "Buscar trabajo"),
     BORRAR_TRABAJO(13, "Borrar trabajo"),
     LISTAR_TRABAJOS(14, "Listar trabajos"),
     LISTAR_TRABAJOS_CLIENTE(15, "Listar trabajos del cliente"),
     LISTAR_TRABAJOS_VEHICULO(16, "Listar trabajos del vehiculo"),
-    ANADIR_HORAS_TRABAJO(17, "AÃ±adir horas trabajo"),
-    ANADIR_PRECIO_MATERIAL_TRABAJO(18, "AÃ±adir precio de material a un trabjo."),
+    ANADIR_HORAS_TRABAJO(17, "Añadir horas trabajo"),
+    ANADIR_PRECIO_MATERIAL_TRABAJO(18, "Añadir precio de material a un trabjo."),
     CERRAR_TRABAJO(19, "Cerrar trabajo"),
-    MOSTRAR_ESTADISTICAS_MENSUALES(20, "Mostrar estadÃ­sticas mensuales."),
+    MOSTRAR_ESTADISTICAS_MENSUALES(20, "Mostrar estadísticas mensuales."),
     SALIR(21, "Salir");
 
     private final int codigo;
@@ -52,7 +52,7 @@ public enum Evento {
 
     public static Evento get(int codigo) {
         if (!esValido(codigo)) {
-            throw new IllegalArgumentException("OpciÃ³n incorrecta.");
+            throw new IllegalArgumentException("Opción incorrecta.");
         }
         return opciones.get(codigo);
     }

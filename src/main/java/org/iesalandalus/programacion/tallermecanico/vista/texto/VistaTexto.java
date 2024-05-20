@@ -33,7 +33,7 @@ public class VistaTexto implements org.iesalandalus.programacion.tallermecanico.
 
     @Override
     public void terminar() {
-        System.out.printf("Â¡HASTA PRONTO!%n");
+        System.out.printf("¡HASTA PRONTO!%n");
     }
 
     private void ejecutar(Evento opcion) {
@@ -42,7 +42,7 @@ public class VistaTexto implements org.iesalandalus.programacion.tallermecanico.
 
     @Override
     public Cliente leerCliente() {
-        return new Cliente(Consola.leerCadena("Dime el nombre del cliente: "), Consola.leerCadena("Dime el dni del cliente: "), Consola.leerCadena("Dime el telÃ©fono del cliente: "));
+        return new Cliente(Consola.leerCadena("Dime el nombre del cliente: "), Consola.leerCadena("Dime el dni del cliente: "), Consola.leerCadena("Dime el teléfono del cliente: "));
     }
 
     @Override
@@ -72,12 +72,12 @@ public class VistaTexto implements org.iesalandalus.programacion.tallermecanico.
 
     @Override
     public Vehiculo leerVehiculo() {
-        return new Vehiculo(Consola.leerCadena("Dime la marca del vehÃ­culo: "), Consola.leerCadena("Dime el modelo del vehÃ­culo: "), Consola.leerCadena("Dime la matrÃ­cula del vehÃ­culo: "));
+        return new Vehiculo(Consola.leerCadena("Dime la marca del vehículo: "), Consola.leerCadena("Dime el modelo del vehículo: "), Consola.leerCadena("Dime la matrícula del vehículo: "));
     }
 
     @Override
     public Vehiculo leerVehiculoMatricula() {
-        return Vehiculo.get(Consola.leerCadena("Dime la matrÃ­cula del vehÃ­culo: "));
+        return Vehiculo.get(Consola.leerCadena("Dime la matrícula del vehículo: "));
     }
 
     @Override
@@ -97,7 +97,7 @@ public class VistaTexto implements org.iesalandalus.programacion.tallermecanico.
 
     @Override
     public int leerHoras() throws OperationNotSupportedException {
-        int horas = Consola.leerEntero("Dime las horas que quieres aÃ±adir: ");
+        int horas = Consola.leerEntero("Dime las horas que quieres añadir: ");
         Revision revision = new Revision(Cliente.get(VistaTexto.DNI_EJEMPLO), Vehiculo.get(VistaTexto.MATRICULA_DEFECTO), LocalDate.now());
         revision.anadirHoras(horas);
         return horas;
@@ -105,7 +105,7 @@ public class VistaTexto implements org.iesalandalus.programacion.tallermecanico.
 
     @Override
     public float leerPrecioMaterial() throws OperationNotSupportedException {
-        float precioMaterial = Consola.leerReal("Dime el precio que quieres aÃ±adir: ");
+        float precioMaterial = Consola.leerReal("Dime el precio que quieres añadir: ");
         Mecanico mecanico = new Mecanico(Cliente.get(VistaTexto.DNI_EJEMPLO), Vehiculo.get(VistaTexto.MATRICULA_DEFECTO), LocalDate.now());
         mecanico.anadirPrecioMaterial(precioMaterial);
         return precioMaterial;
@@ -161,19 +161,19 @@ public class VistaTexto implements org.iesalandalus.programacion.tallermecanico.
                 System.out.printf("%s%n", cliente);
             }
         } else {
-            System.out.printf("No existe ningÃºn cliente.%n");
+            System.out.printf("No existe ningún cliente.%n");
         }
     }
 
     @Override
     public void mostrarVehiculos(List<Vehiculo> vehiculos) {
-        Objects.requireNonNull(vehiculos, "Los vehÃ­culos no pueden ser nulos.");
+        Objects.requireNonNull(vehiculos, "Los vehículos no pueden ser nulos.");
         if (!vehiculos.isEmpty()) {
             for (Vehiculo vehiculo: vehiculos) {
                 System.out.printf("%s%n", vehiculo);
             }
         } else {
-            System.out.printf("No existe ningÃºn vehÃ­culo.%n");
+            System.out.printf("No existe ningún vehículo.%n");
         }
     }
 
@@ -185,13 +185,13 @@ public class VistaTexto implements org.iesalandalus.programacion.tallermecanico.
                 System.out.printf("%s%n", trabajo);
             }
         } else {
-            System.out.printf("No existe ningÃºn trabajo.%n");
+            System.out.printf("No existe ningún trabajo.%n");
         }
     }
     @Override
     public void mostrarEstadisticasMensuales(Map<TipoTrabajo, Integer> estadisticas) {
-        Objects.requireNonNull(estadisticas, "La estadÃ­stica no puede ser nula.");
-        System.out.printf("%nLas estadÃ­sticas para este mes son:%n");
+        Objects.requireNonNull(estadisticas, "La estadística no puede ser nula.");
+        System.out.printf("%nLas estadísticas para este mes son:%n");
         for (TipoTrabajo tipoEstadistica : estadisticas.keySet()) {
             System.out.printf("%s: %s%n", tipoEstadistica.nombre, estadisticas.get(tipoEstadistica));
         }

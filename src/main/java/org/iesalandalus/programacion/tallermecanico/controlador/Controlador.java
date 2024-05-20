@@ -59,7 +59,7 @@ public class Controlador implements IControlador {
                 }
                 case INSERTAR_VEHICULO -> {
                     modelo.insertar(vista.leerVehiculo());
-                    resultado = "Se ha insertado el vehÃ­culo correctamente.";
+                    resultado = "Se ha insertado el vehículo correctamente.";
                 }
                 case BUSCAR_VEHICULO -> vista.mostrarVehiculo(modelo.buscar(vista.leerVehiculoMatricula()));
                 case BORRAR_VEHICULO -> {
@@ -70,11 +70,11 @@ public class Controlador implements IControlador {
 
                 case INSERTAR_REVISION -> {
                     modelo.insertar(vista.leerRevision());
-                    resultado = "Se ha insertado la revisiÃ³n correctamente.";
+                    resultado = "Se ha insertado la revisión correctamente.";
                 }
                 case INSERTAR_MECANICO -> {
                     modelo.insertar(vista.leerMecanico());
-                    resultado = "Se ha insertado el trabajo mecÃ¡nico correctamente.";
+                    resultado = "Se ha insertado el trabajo mecánico correctamente.";
                 }
                 case BUSCAR_TRABAJO -> vista.mostrarTrabajo(modelo.buscar(vista.leerRevision()));
                 case BORRAR_TRABAJO -> {
@@ -89,11 +89,11 @@ public class Controlador implements IControlador {
 
                 case ANADIR_HORAS_TRABAJO -> {
                     modelo.anadirHoras((vista.leerTrabajoVehiculo()), vista.leerHoras());
-                    resultado = "Se han aÃ±adido las horas al trabajo.";
+                    resultado = "Se han añadido las horas al trabajo.";
                 }
                 case ANADIR_PRECIO_MATERIAL_TRABAJO -> {
                     modelo.anadirPrecioMaterial((vista.leerTrabajoVehiculo()), vista.leerPrecioMaterial());
-                    resultado = "Se ha aÃ±adido el precio material al trabajo.";
+                    resultado = "Se ha añadido el precio material al trabajo.";
                 }
                 case CERRAR_TRABAJO -> {
                     modelo.cerrar((vista.leerTrabajoVehiculo()), vista.leerFechaCierre());
