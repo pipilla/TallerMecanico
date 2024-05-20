@@ -11,6 +11,7 @@ import org.iesalandalus.programacion.tallermecanico.vista.grafica.controladores.
 import org.iesalandalus.programacion.tallermecanico.vista.grafica.controladores.VentanaPrincipal;
 import org.iesalandalus.programacion.tallermecanico.vista.grafica.utilidades.Controlador;
 import org.iesalandalus.programacion.tallermecanico.vista.grafica.utilidades.Controladores;
+import org.iesalandalus.programacion.tallermecanico.vista.grafica.utilidades.Dialogos;
 
 import javax.naming.OperationNotSupportedException;
 import java.time.LocalDate;
@@ -117,7 +118,11 @@ public class VistaGrafica implements Vista {
 
     @Override
     public void notificarResultado(Evento evento, String texto, boolean exito) {
-
+        if (exito) {
+            Dialogos.mostrarDialogoInformacion(Evento.INSERTAR_CLIENTE.toString(), texto, null);
+        } else {
+            Dialogos.mostrarDialogoError(Evento.INSERTAR_CLIENTE.toString(), texto, null);
+        }
     }
 
     @Override
