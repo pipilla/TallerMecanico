@@ -213,6 +213,7 @@ public class Trabajos implements ITrabajos {
     @Override
     public void anadirHoras(Trabajo trabajo, int horas) throws OperationNotSupportedException {
         Objects.requireNonNull(trabajo, "No puedo añadir horas a un trabajo nulo.");
+        //Cambiar cosas
         try (PreparedStatement sentencia = conexion.prepareStatement("select * from trabajos where cliente = ? and vehiculo = ? and fechaFin is null", ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE)) {
             sentencia.setString(1, trabajo.getCliente().getDni());
             sentencia.setString(2, trabajo.getVehiculo().matricula());
