@@ -23,6 +23,8 @@ dependencies {
     testImplementation 'org.mockito:mockito-inline:+'
     implementation 'com.github.JRJimenezReyes:entrada:1.0.3'
 
+    implementation 'org.mongodb:mongodb-driver-sync:+'
+
     implementation 'org.mariadb.jdbc:mariadb-java-client:+'
     implementation 'org.slf4j:slf4j-simple:+'
 
