@@ -25,10 +25,10 @@ public class Mecanico extends Trabajo {
 
     public void anadirPrecioMaterial(float precioMaterial) throws OperationNotSupportedException {
         if (estaCerrado()) {
-            throw new OperationNotSupportedException("No se puede a√±adir precio del material, ya que el trabajo mec√°nico est√° cerrado.");
+            throw new OperationNotSupportedException("No se puede aÒadir precio del material, ya que el trabajo mec·nico est· cerrado.");
         }
         if (precioMaterial <= 0) {
-            throw new IllegalArgumentException("El precio del material a a√±adir debe ser mayor que cero.");
+            throw new IllegalArgumentException("El precio del material a aÒadir debe ser mayor que cero.");
         }
         this.precioMaterial += precioMaterial;
     }
@@ -40,9 +40,9 @@ public class Mecanico extends Trabajo {
     @Override
     public String toString() {
         if (estaCerrado()) {
-            return String.format("Mec√°nico -> %s - %s (%s - %s): %s horas, %.2f ‚Ç¨ en material, %.2f ‚Ç¨ total", this.cliente, this.vehiculo, this.fechaInicio.format(FORMATO_FECHA), this.fechaFin.format(FORMATO_FECHA), this.horas, this.precioMaterial, getPrecio());
+            return String.format("Mec·nico -> %s - %s (%s - %s): %s horas, %.2f Ä en material, %.2f Ä total", this.cliente, this.vehiculo, this.fechaInicio.format(FORMATO_FECHA), this.fechaFin.format(FORMATO_FECHA), this.horas, this.precioMaterial, getPrecio());
         } else {
-            return String.format("Mec√°nico -> %s - %s (%s - ): %s horas, %.2f ‚Ç¨ en material", this.cliente, this.vehiculo, this.fechaInicio.format(FORMATO_FECHA), this.horas, this.precioMaterial);
+            return String.format("Mec·nico -> %s - %s (%s - ): %s horas, %.2f Ä en material", this.cliente, this.vehiculo, this.fechaInicio.format(FORMATO_FECHA), this.horas, this.precioMaterial);
         }
     }
 }

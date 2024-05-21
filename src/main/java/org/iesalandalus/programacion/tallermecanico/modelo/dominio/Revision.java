@@ -21,9 +21,9 @@ public class Revision extends Trabajo {
     @Override
     public String toString() {
         if (estaCerrado()) {
-            return String.format("RevisiÃ³n -> %s - %s (%s - %s): %s horas, %.2f â‚¬ total", this.cliente, this.vehiculo, this.fechaInicio.format(FORMATO_FECHA), this.fechaFin.format(FORMATO_FECHA), this.horas, getPrecio());
+            return String.format("Revisión -> %s - %s (%s - %s): %s horas, %.2f € total", this.cliente, this.vehiculo, this.fechaInicio.format(FORMATO_FECHA), this.fechaFin.format(FORMATO_FECHA), this.horas, getPrecio());
         } else {
-            return String.format("RevisiÃ³n -> %s - %s (%s - ): %s horas", this.cliente, this.vehiculo, this.fechaInicio.format(FORMATO_FECHA), this.horas);
+            return String.format("Revisión -> %s - %s (%s - ): %s horas", this.cliente, this.vehiculo, this.fechaInicio.format(FORMATO_FECHA), this.horas);
         }
     }
 }

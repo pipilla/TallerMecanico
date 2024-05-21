@@ -41,7 +41,7 @@ public abstract class Trabajo {
     }
 
     public static Trabajo get(Vehiculo vehiculo) {
-        Objects.requireNonNull(vehiculo, "El vehÃ­culo no puede ser nulo.");
+        Objects.requireNonNull(vehiculo, "El vehículo no puede ser nulo.");
         return new Revision(Cliente.get("11111111H"), vehiculo, LocalDate.now());
     }
 
@@ -59,7 +59,7 @@ public abstract class Trabajo {
     }
 
     protected void setVehiculo(Vehiculo vehiculo) {
-        Objects.requireNonNull(vehiculo, "El vehÃ­culo no puede ser nulo.");
+        Objects.requireNonNull(vehiculo, "El vehículo no puede ser nulo.");
         this.vehiculo = vehiculo;
     }
 
@@ -96,10 +96,10 @@ public abstract class Trabajo {
 
     public void anadirHoras(int horas) throws OperationNotSupportedException {
         if (horas <= 0) {
-            throw new IllegalArgumentException("Las horas a aÃ±adir deben ser mayores que cero.");
+            throw new IllegalArgumentException("Las horas a añadir deben ser mayores que cero.");
         }
         if (estaCerrado()) {
-            throw new OperationNotSupportedException("No se puede aÃ±adir horas, ya que el trabajo estÃ¡ cerrado.");
+            throw new OperationNotSupportedException("No se puede añadir horas, ya que el trabajo está cerrado.");
         }
         this.horas += horas;
     }
@@ -111,7 +111,7 @@ public abstract class Trabajo {
     public void cerrar(LocalDate fechaFin) throws OperationNotSupportedException {
         Objects.requireNonNull(fechaFin, "La fecha de fin no puede ser nula.");
         if (estaCerrado()) {
-            throw new OperationNotSupportedException("El trabajo ya estÃ¡ cerrado.");
+            throw new OperationNotSupportedException("El trabajo ya está cerrado.");
         }
         setFechaFin(fechaFin);
     }

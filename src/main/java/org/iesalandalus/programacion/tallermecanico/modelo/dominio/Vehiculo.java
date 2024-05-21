@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public record Vehiculo(String marca, String modelo, String matricula) {
 
-    private static final String ER_MARCA = "(?:(?:[A-Z][a-z√°√©√≠√≥√∫√±]+[ -]?)|(?:[A-Z]+))+";
+    private static final String ER_MARCA = "(?:(?:[A-Z][a-z·ÈÌÛ˙Ò]+[ -]?)|(?:[A-Z]+))+";
     private static final String ER_MATRICULA = "\\d{4}[^\\WAEIOU_\\da-z]{3}";
 
     public Vehiculo {
@@ -14,9 +14,9 @@ public record Vehiculo(String marca, String modelo, String matricula) {
     }
 
     private void validarMatricula(String matricula) {
-        Objects.requireNonNull(matricula, "La matr√≠cula no puede ser nula.");
+        Objects.requireNonNull(matricula, "La matrÌcula no puede ser nula.");
         if (!matricula.matches(ER_MATRICULA)){
-            throw new IllegalArgumentException("La matr√≠cula no tiene un formato v√°lido.");
+            throw new IllegalArgumentException("La matrÌcula no tiene un formato v·lido.");
         }
     }
 
@@ -30,7 +30,7 @@ public record Vehiculo(String marca, String modelo, String matricula) {
     private void validarMarca(String marca) {
         Objects.requireNonNull(marca, "La marca no puede ser nula.");
         if (!marca.matches(ER_MARCA)){
-            throw new IllegalArgumentException("La marca no tiene un formato v√°lido.");
+            throw new IllegalArgumentException("La marca no tiene un formato v·lido.");
         }
     }
 
